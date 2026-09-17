@@ -1,0 +1,360 @@
+/* ==========================================================================
+   3D DRONE SCENE & TECHNICAL HUD OVERLAY STYLES
+   Aerospace Telemetry, Compass, Coordinates, and Responsive Layout
+   ========================================================================== */
+
+.drone-scene-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55vw;
+  height: 100vh;
+  z-index: 2;
+  overflow: hidden;
+}
+
+@media (max-width: 1024px) {
+  .drone-scene-wrapper {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 400px;
+    margin-top: 1rem;
+  }
+}
+
+.drone-scene-wrapper.compact {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+/* Fallback Image Container */
+.drone-fallback-view {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(225, 6, 0, 0.08) 0%, transparent 70%);
+}
+
+.drone-fallback-img {
+  max-width: 85%;
+  max-height: 75%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+}
+
+.drone-fallback-overlay {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 14, 0.85);
+  border: 1px solid var(--border-red);
+  padding: 0.5rem 1rem;
+  border-radius: 2px;
+}
+
+/* Technical HUD Telemetry Overlay */
+.technical-hud-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .technical-hud-container {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+}
+
+.hud-widget {
+  background: rgba(8, 8, 12, 0.65);
+  border: 1px solid var(--border-subtle);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.75rem 1rem;
+  border-radius: 2px;
+  position: relative;
+  max-width: 320px;
+}
+
+.hud-widget::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-red);
+}
+
+.hud-top-left {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.hud-top-right {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+  text-align: right;
+}
+
+.hud-bottom-left {
+  grid-column: 1;
+  grid-row: 3;
+  justify-self: start;
+}
+
+.hud-bottom-right {
+  grid-column: 2;
+  grid-row: 3;
+  justify-self: end;
+}
+
+/* Header line in HUD widgets */
+.hud-line-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding-bottom: 0.35rem;
+}
+
+.hud-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-red);
+  display: inline-block;
+}
+
+.hud-indicator.active {
+  background: var(--status-active);
+  box-shadow: 0 0 8px var(--status-active);
+}
+
+.hud-indicator.pulse {
+  animation: hud-blink 1.5s infinite;
+}
+
+@keyframes hud-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hud-metrics-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.hud-metric {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+}
+
+.hud-metric-label {
+  color: var(--text-faint);
+  letter-spacing: 0.1em;
+}
+
+.hud-metric-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.hud-metric-value.text-red {
+  color: var(--accent-red-bright);
+}
+
+/* Large HUD readout boxes */
+.hud-metrics-grid {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.hud-metric-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.hud-metric-hero-val {
+  font-family: var(--font-headline);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.hud-metric-hero-val .unit {
+  font-size: 0.8rem;
+  color: var(--accent-red-bright);
+  font-family: var(--font-mono);
+  margin-left: 2px;
+}
+
+/* Sensor Matrix Readout */
+.hud-sensor-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 0.8rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.hud-sensor-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.4rem;
+}
+
+.sensor-name {
+  color: var(--text-faint);
+}
+
+.sensor-val {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.text-green {
+  color: #00e676;
+}
+
+.text-red {
+  color: var(--accent-red-bright);
+}
+
+/* Battery & Coordinates */
+.hud-power-status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hud-power-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hud-power-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.hud-power-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.hud-power-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-red) 0%, var(--accent-red-bright) 100%);
+}
+
+.hud-coords {
+  display: flex;
+  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-faint);
+  letter-spacing: 0.08em;
+}
+
+.hud-divider {
+  color: var(--border-subtle);
+}
+
+/* Target Reticle Crosshair in Center */
+.hud-center-crosshair {
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.45;
+  transition: opacity var(--transition-fast);
+}
+
+.reticle-ring {
+  width: 64px;
+  height: 64px;
+  border: 1px dashed rgba(225, 6, 0, 0.6);
+  border-radius: 50%;
+  animation: rotate-radar 20s linear infinite;
+}
+
+@keyframes rotate-radar {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.reticle-line {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.reticle-h {
+  width: 100%;
+  height: 1px;
+}
+
+.reticle-v {
+  height: 100%;
+  width: 1px;
+}
+
+.reticle-tag {
+  position: absolute;
+  bottom: -18px;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  color: var(--accent-red-bright);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .hud-center-crosshair {
+    display: none;
+  }
+  .hud-bottom-left, .hud-top-left {
+    max-width: 180px;
+  }
+}
