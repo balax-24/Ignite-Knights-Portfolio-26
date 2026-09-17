@@ -1,44 +1,50 @@
-# Ignite Knights 3.0 — Official Autonomous Aerial Systems Portfolio
+# Ignite Knights 4.0 — Official Autonomous Aerial Systems Platform
 
-> **Engineering the sky. Building beyond limits.**
+> **A new generation takes flight.**
 
-Welcome to the official portfolio and mission control web platform of **Ignite Knights 3.0**, an interdisciplinary student aerospace and autonomous aerial systems research team based at **Sairam Institution, Chennai, India**.
+Welcome to the official digital platform and mission control interface of **Ignite Knights 4.0**, a new generation autonomous aerial systems engineering organization based at **Sairam Institution, Chennai, India**.
 
 ---
 
-## 🚁 Overview
+## 🚁 Generation Overview
 
-Ignite Knights 3.0 unites engineers across Computer Science (CSE), Electronics & Communication (ECE), Mechanical Engineering (MECH), and Electrical & Electronics (EEE) to research, fabricate, and deploy competition-grade autonomous unmanned aerial vehicles (UAVs).
+**Ignite Knights 4.0** represents a clean-sheet generational evolution. Operating as an experimental flight-testing and robotics lab, the team engineers next-generation multirotor UAVs, heterogeneous edge perception computing, and deterministic flight autonomy for complex, GPS-degraded operational environments.
 
-- **National Standing:** Top 10 National Finalist at **SAE ADDC 2025**
-- **Active Arena Missions:** NIDAR 2026, AERATHON 2026, and SAE ADDC 2026
-- **Technology Focus:** Edge AI & Computer Vision (YOLOv8, TensorRT), GPS-Denied SLAM & VIO, MAVLink/MAVROS Flight Control, Multi-Modal LiDAR Perception, and Carbon Composite Airframe Engineering.
+- **Current Generation:** Ignite Knights 4.0 (2026 → Present)
+- **Development Aircraft:** IK-04 Clean-Sheet UAV Platform (In Development)
+- **Engineering Divisions:** Autonomy & Edge AI, Avionics & Power, Mechanical & Composites, Flight Systems, Operations
+- **Methodology:** 7-Stage Aerospace Lifecycle (`IDEA → DESIGN → SIMULATION → FABRICATION → INTEGRATION → TESTING → FLIGHT`)
+- **Historical Record:** Preserved in the dedicated [Ignite Knights 3.0 Historical Archive](/archive) (2024–2026, including SAE ADDC 2025 Top 10 national ranking finish and inaugural hexacopter platform).
 
 ---
 
 ## ⚡ Technology Stack
 
-- **Core:** React 19, Vite, Modern ES Modules
+- **Framework:** React 19, Vite, Modern ES Modules
 - **Routing:** React Router v7
 - **3D Graphics & Simulation:** Three.js, `@react-three/fiber`, `@react-three/drei`
-- **Interactive 3D UAV:** Custom procedural competition quadcopter UAV featuring PBR carbon fiber chassis, CNC anodized aluminum mounts, brushless outrunner motors with copper stator coils, spinning aerodynamic propellers, flight controller stack, NVIDIA Jetson edge compute module, forward 4K gimbal camera, GPS mast, and live telemetry HUD.
-- **Styling:** Custom Aerospace Design System (Vanilla CSS with CSS Custom Properties, JetBrains Mono, Space Grotesk, Inter, and strategic `#E10600` aerospace red accents).
+- **Interactive 3D Aircraft:** Custom procedural IK-04 development aircraft featuring Toray 3K carbon-fiber dual deck chassis, CNC 7075 anodized aluminum mounts, high-torque BLDC outrunner motors with visible stator windings, rotating aerodynamic props, avionics beacon LEDs, Jetson edge compute module, 6S LiPo power harness, 4K forward gimbal camera, downward LiDAR, RTK GPS mast, and support for Exploded View component separation and interactive hotspot inspection.
+- **Styling:** Custom Aerospace Design System (Vanilla CSS with strict engineering color tokens: black void `#050505`, aerospace red accents `#E10600`, JetBrains Mono, Space Grotesk, Inter).
 - **Icons:** Lucide React
 
 ---
 
-## 🗺️ Routes & Pages
+## 🗺️ Routes & Information Architecture
 
-| Route | Page | Focus |
+The website features 10 distinct, dedicated routes with asymmetric aerospace editorial layouts:
+
+| Route | Page | Purpose |
 |---|---|---|
-| `/` | **Home** | Cinematic 3D drone hero, live telemetry HUD, mission split, interactive technical domains, milestones preview, competitions, and sponsors. |
-| `/about` | **About Us** | Multidisciplinary philosophy and 5-stage Autonomous Execution Pipeline (Perception → Computation → Decision → Control → Flight). |
-| `/team` | **Team** | Roster directory with domain filters (ALL, AI, MECHANICAL, ELECTRONICS, SOFTWARE), core engineers, faculty guides, and trainees. |
-| `/journey` | **Journey** | Interactive vertical timeline spanning 2024 debut, 2025 Top 10 finish, and 2026 commercial expansion. |
-| `/competitions` | **Competitions** | Detailed tactical mission dossiers for NIDAR 2026, AERATHON 2026, and SAE ADDC 2026 with objectives and telemetry profiles. |
-| `/gallery` | **Gallery** | Asymmetric documentary masonry showcase of range trials, bench testing, fabrication, and flight lines with inspection modal. |
-| `/sponsors` | **Sponsors** | 9-partner technology ecosystem (MATLAB, Altair, Siemens, Altium, RoadRunner, ANSYS, SolidWorks, Mastercam, Onshape). |
-| `/contact` | **Contact** | Encrypted dispatch transmission form, command headquarters coordinates, phone lines, and operating schedule. |
+| `/` | **Home** | Huge typography hero, dominant 3D UAV with hotspots, editorial "What is 4.0?" manifesto, IK-04 spotlight, engineering domains, 4.0 missions in prep, and 3.0 archive portal. |
+| `/about` | **About** | 4.0 engineering philosophy, systems thinking, who we are, how we work, and the interactive 7-stage aerospace development pipeline. |
+| `/team` | **Team** | Official 4.0 engineering directory (roster updating notice, departmental slots across Leadership, AI/Software, Electronics, Mechanical, Flight Systems). |
+| `/aircraft` | **Aircraft** | Dedicated 3D CAD inspection workstation with Exploded View component separation and modular subsystem telemetry tables (Airframe, Propulsion, Compute, Perception, Control, Power, RF). |
+| `/missions` | **Missions** | 4.0 operational mission dossiers in development (Planning/Design stages, challenges, and system requirements). |
+| `/journey` | **Journey** | Dual-era timeline: 3.0 Archive milestones → dramatic System Reset Transition Bridge → 4.0 Active Development trajectory. |
+| `/gallery` | **Gallery** | Editorial masonry visual showcase with 4.0 build placeholders, verified 3.0 historical archive photographs, and interactive lightbox. |
+| `/partners` | **Partners** | 4.0 partnership program and engagement tracks + 3.0 archived technology software licenses. |
+| `/archive` | **Archive** | Complete historical portal permanently preserving all Ignite Knights 3.0 legacy data (2024–2026 team members, hexacopter, quadcopter, SAE ADDC 2025 top 10 finish, and 9 software sponsors). |
+| `/contact` | **Contact** | Mission communication interface with direct channels (Collaborate, Sponsor, Partner, Technical Inquiry, General Contact) and base coordinates. |
 
 ---
 
@@ -48,37 +54,26 @@ Ignite Knights 3.0 unites engineers across Computer Science (CSE), Electronics &
 - Node.js >= 18.0.0
 - npm >= 9.0.0
 
-### Installation
-```bash
-# Clone the repository
-git clone https://github.com/balax-24/Ignite-Knights-Portfolio-26.git
-cd Ignite-Knights-Portfolio-26
-
-# Install dependencies
-npm install
-```
-
 ### Local Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:5174](http://localhost:5174) in your browser.
 
 ### Production Build
 ```bash
 npm run build
 ```
-Generates an optimized static distribution in the `dist/` folder.
+Generates an optimized static distribution in the `dist/` directory.
 
 ---
 
-## 📍 Headquarters & Inquiries
+## 📍 Headquarters & Base of Operations
 
-- **Lead Contact:** +91 82482 29487 / +91 9445805104
 - **Electronic Dispatch:** igniteknights10@gmail.com
+- **Command Telephones:** +91 82482 29487 / +91 9445805104
 - **Facility Base:** Sairam Institution, West Tambaram, Chennai-44, Tamil Nadu, India
-- **Telemetry Beacon:** LAT 12.9249° N, LON 80.0543° E
+- **Telemetry Coordinates:** LAT 12.9249° N, LON 80.0543° E
 
 ---
 
-© 2026 Ignite Knights 3.0. All rights reserved.
+© 2026 Ignite Knights 4.0. All rights reserved.

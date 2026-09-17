@@ -1,138 +1,155 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { PageHero } from '../components/common/PageHero';
-import { SectionHeader } from '../components/common/SectionHeader';
-import { teamMembers, mentorsAndGuides, engineeringTrainees } from '../data/teamData';
-import { TeamCard } from '../components/cards/TeamCard';
-import { ShieldCheck, UserCheck, GraduationCap, Award } from 'lucide-react';
+import { GenerationBadge } from '../components/common/GenerationBadge';
+import { teamMeta, teamCategories, teamDepartments, real4TeamMembers } from '../data/team';
+import {
+  Users,
+  Shield,
+  Cpu,
+  Layers,
+  Activity,
+  CheckCircle2,
+  Archive,
+  ArrowUpRight,
+  Clock,
+  Briefcase,
+} from 'lucide-react';
 
 export function TeamPage() {
-  const [activeFilter, setActiveFilter] = useState('ALL');
+  const [activeCategory, setActiveCategory] = useState('ALL');
 
-  const filterOptions = ['ALL', 'AI', 'MECHANICAL', 'ELECTRONICS', 'SOFTWARE'];
-
-  const filteredMembers =
-    activeFilter === 'ALL'
-      ? teamMembers
-      : teamMembers.filter((m) => m.domain === activeFilter);
+  const filteredDepartments =
+    activeCategory === 'ALL'
+      ? teamDepartments
+      : teamDepartments.filter((d) => d.category === activeCategory);
 
   return (
     <div className="team-page">
-      {/* Hero */}
+      {/* Page Hero Header */}
       <PageHero
-        badge="ENGINEERING CADRE // ROSTER 2026"
-        title="THE PEOPLE"
-        highlight="BEHIND THE FLIGHT."
-        subtitle="Different domains. One mission. Meet the interdisciplinary engineers, developers, and researchers driving Ignite Knights 3.0."
-        telemetry="ACTIVE PERSONNEL : 11 CORE // 3 MENTORS // 5 TRAINEES"
-      />
+        badge="IGNITE KNIGHTS 4.0 // DIRECTORY"
+        title="4.0 TEAM"
+        highlight="DIRECTORY"
+        subtitle={teamMeta.description}
+        telemetry="IK-04 // ROSTER CERTIFICATION MODE"
+      >
+        <div className="flex items-center gap-3 mt-2">
+          <GenerationBadge variant="current" size="sm" />
+          <span className="tech-badge-dot active"></span>
+          <span className="font-mono text-xs text-red">{teamMeta.status}</span>
+        </div>
+      </PageHero>
 
-      {/* Filter Toolbar */}
-      <section className="team-filter-section">
-        <div className="container">
-          <div className="team-filter-bar corner-bracket-box">
-            <div className="filter-label-group">
-              <span className="status-dot active"></span>
-              <span className="tech-label">DOMAIN DIVISION FILTER:</span>
+      <div className="container py-8">
+        {/* Prominent Official Roster Status Banner */}
+        <div className="roster-status-banner mb-10">
+          <div className="banner-left">
+            <div className="flex items-center gap-2 mb-1">
+              <Clock size={16} className="text-red animate-pulse" />
+              <span className="tech-label text-red">OFFICIAL ANNOUNCEMENT NOTICE</span>
             </div>
+            <h3 className="banner-title text-white font-bold text-lg">
+              4.0 ENGINEERING ROSTER CERTIFICATION IN PROGRESS
+            </h3>
+            <p className="banner-desc text-sm text-gray-400">
+              The incoming 4.0 cohort is finalizing subsystem leadership allocations and lab assignments across our five specialized engineering divisions. The directory structure below outlines our departmental organization.
+            </p>
+          </div>
 
-            <div className="filter-buttons-wrap">
-              {filterOptions.map((filter) => (
-                <button
-                  key={filter}
-                  className={`team-filter-btn ${activeFilter === filter ? 'active' : ''}`}
-                  onClick={() => setActiveFilter(filter)}
-                >
-                  <span>{filter}</span>
-                  {activeFilter === filter && <span className="filter-dot"></span>}
-                </button>
-              ))}
-            </div>
-
-            <div className="filter-count-indicator">
-              <span className="tech-label">SHOWING {filteredMembers.length} SPECIALISTS</span>
-            </div>
+          <div className="banner-right flex items-center">
+            <Link to="/archive" className="btn-aerospace btn-aerospace-archive-cta">
+              <Archive size={14} />
+              <span>VIEW 3.0 ROSTER ARCHIVE →</span>
+            </Link>
           </div>
         </div>
-      </section>
 
-      {/* Core Engineering Members Grid */}
-      <section className="team-grid-section">
-        <div className="container">
-          <div className="team-cards-grid">
-            {filteredMembers.map((member) => (
-              <TeamCard key={member.id} member={member} />
+        {/* Division Filter Navigation */}
+        <div className="team-category-nav mb-10">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="tech-tag tech-tag-red">DEPARTMENTAL DIVISIONS</span>
+            <span className="font-mono text-xs text-gray-400">SELECT ENGINEERING SPECIALTY</span>
+          </div>
+
+          <div className="category-tabs-wrap">
+            {teamCategories.map((cat) => (
+              <button
+                key={cat}
+                type="button"
+                className={`category-tab-btn ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                <span className="tab-dot"></span>
+                <span className="font-mono text-xs">{cat}</span>
+              </button>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Mentors & Faculty Advisors Section */}
-      <section className="team-mentors-section">
-        <div className="container">
-          <SectionHeader
-            number="02"
-            tag="INSTITUTIONAL OVERSIGHT"
-            title="FACULTY GUIDES"
-            highlight="& ALUMNI MENTORS"
-            subtitle="Guiding our technical trajectory with senior academic guidance and competitive aerospace experience."
-          />
-
-          <div className="mentors-grid">
-            {mentorsAndGuides.map((guide) => (
-              <div key={guide.id} className="mentor-card corner-bracket-box">
-                <div className="mentor-header">
-                  <div className="flex items-center gap-2">
-                    <GraduationCap size={18} className="text-red" />
-                    <span className="tech-tag tech-tag-red">{guide.badge}</span>
-                  </div>
-                  <span className="tech-label">{guide.organization}</span>
+        {/* Departmental Structure & Allocation Slots */}
+        <div className="departments-stack space-y-10">
+          {filteredDepartments.map((dept) => (
+            <div key={dept.code} className="department-block">
+              <div className="dept-header-bar">
+                <div className="flex items-center gap-3">
+                  <span className="dept-code-tag font-mono">{dept.code}</span>
+                  <h3 className="dept-name text-white font-bold">{dept.name}</h3>
                 </div>
-
-                <div className="mentor-body">
-                  <h3 className="mentor-name">{guide.name}</h3>
-                  <p className="mentor-role">{guide.role}</p>
-                  <p className="mentor-title">{guide.title}</p>
-                  <p className="mentor-bio">{guide.bio}</p>
-                </div>
+                <span className="dept-category-badge font-mono">{dept.category}</span>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Engineering Trainees Section */}
-      <section className="team-trainees-section">
-        <div className="container">
-          <SectionHeader
-            number="03"
-            tag="CADRE INITIATION"
-            title="ENGINEERING"
-            highlight="TRAINEES"
-            subtitle="The next generation of avionics, composite, and autonomous systems engineers in rigorous preparation."
-          />
+              <p className="dept-description text-sm text-gray-400 mb-6">{dept.description}</p>
 
-          <div className="trainees-grid">
-            {engineeringTrainees.map((trainee, idx) => (
-              <div key={idx} className="trainee-card corner-bracket-box">
-                <div className="trainee-avatar-wrap">
-                  {trainee.photo ? (
-                    <img src={trainee.photo} alt={trainee.name} className="trainee-img" />
-                  ) : (
-                    <div className="trainee-fallback">
-                      <Award size={24} className="text-faint" />
+              {/* Roster Slots Grid */}
+              <div className="slots-grid">
+                {dept.slots.map((slot, sIdx) => (
+                  <div key={sIdx} className="slot-card">
+                    <div className="slot-card-header">
+                      <span className="slot-callsign font-mono text-red">{slot.callSign}</span>
+                      <span className="slot-status-pill font-mono">{slot.status}</span>
                     </div>
-                  )}
-                </div>
-                <div className="trainee-details">
-                  <h4 className="trainee-name">{trainee.name}</h4>
-                  <span className="trainee-role text-red">{trainee.role}</span>
-                  <span className="trainee-dept">{trainee.dept}</span>
-                </div>
+
+                    <h4 className="slot-role text-white font-semibold mt-2">{slot.role}</h4>
+                    <div className="slot-dept font-mono text-xs text-gray-400 mb-3">{slot.department}</div>
+
+                    <div className="slot-responsibilities-box font-mono text-xs">
+                      <span className="text-gray-500 block mb-1">CORE MANDATE:</span>
+                      <span className="text-gray-300">{slot.responsibilities}</span>
+                    </div>
+
+                    <div className="slot-footer-state mt-4 flex items-center justify-between font-mono text-xs text-gray-500">
+                      <span>VERIFICATION: PENDING</span>
+                      <span className="text-red">GEN 4.0</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </section>
+
+        {/* Previous Generation 3.0 Roster Portal */}
+        <section className="team-archive-bridge mt-16">
+          <div className="bridge-inner">
+            <div className="bridge-left">
+              <GenerationBadge variant="archive" size="sm" />
+              <h3 className="bridge-title mt-2">
+                LOOKING FOR IGNITE KNIGHTS 3.0 MEMBERS & LEADERSHIP?
+              </h3>
+              <p className="bridge-desc">
+                The 3.0 founding engineers (Mithra Niranjan P, Rakshanasri E, Dhiraj J S, Shakthivel T V, and core teammates), faculty guides, and trainees are permanently recorded in the 3.0 Historical Archive.
+              </p>
+            </div>
+            <div className="bridge-right">
+              <Link to="/archive" className="btn-aerospace btn-aerospace-archive-cta">
+                <Archive size={15} />
+                <span>INSPECT 3.0 ROSTER ARCHIVE →</span>
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

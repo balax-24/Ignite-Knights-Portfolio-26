@@ -651,3 +651,380 @@
   align-items: center;
   justify-content: space-between;
 }
+
+/* ==========================================================================
+   GENERATION BADGE & 4.0 IDENTITY STYLES
+   ========================================================================== */
+.brand-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.brand-gen-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: var(--accent-red);
+  padding: 0.1rem 0.4rem;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+  box-shadow: 0 0 8px rgba(225, 6, 0, 0.4);
+}
+
+.nav-active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--accent-red);
+  transition: width var(--transition-fast);
+}
+
+.nav-link.active .nav-active-indicator {
+  width: 100%;
+  box-shadow: 0 0 8px var(--accent-red-bright);
+}
+
+/* Distinct 3.0 Archive Navbar Button */
+.navbar-archive-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  transition: all var(--transition-fast);
+}
+
+.navbar-archive-btn:hover,
+.navbar-archive-btn.active {
+  background: rgba(225, 6, 0, 0.08);
+  border-color: rgba(225, 6, 0, 0.4);
+  color: #ffffff;
+}
+
+.navbar-archive-btn .archive-tag {
+  font-size: 0.58rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  color: var(--text-muted);
+}
+
+.navbar-archive-btn:hover .archive-tag {
+  background: rgba(225, 6, 0, 0.2);
+  color: var(--accent-red-bright);
+}
+
+/* Reusable GenerationBadge Component */
+.generation-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.gen-badge-sm {
+  font-size: 0.62rem;
+  padding: 0.2rem 0.55rem;
+}
+
+.gen-badge-md {
+  font-size: 0.72rem;
+  padding: 0.35rem 0.75rem;
+}
+
+.gen-badge-lg {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+}
+
+.gen-badge-current {
+  background: rgba(225, 6, 0, 0.08);
+  border: 1px solid rgba(225, 6, 0, 0.4);
+  color: #ffffff;
+}
+
+.gen-badge-current .gen-badge-tag {
+  background: var(--accent-red);
+  color: #ffffff;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  font-weight: 700;
+}
+
+.gen-badge-archive {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-secondary);
+}
+
+.gen-badge-archive .gen-badge-tag {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--text-muted);
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  font-weight: 700;
+}
+
+.gen-dot-pulse {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-red-bright);
+  box-shadow: 0 0 8px var(--accent-red-bright);
+  animation: pulse-dot 1.8s infinite;
+}
+
+.gen-dot-archive {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #666670;
+}
+
+/* Footer Archive Portal Strip */
+.footer-archive-portal-strip {
+  margin-top: 3rem;
+  padding: 1.5rem 2rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .footer-archive-portal-strip {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.25rem;
+  }
+}
+
+.footer-archive-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.btn-aerospace-archive-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-aerospace-archive-cta:hover {
+  background: rgba(225, 6, 0, 0.1);
+  border-color: var(--accent-red);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(225, 6, 0, 0.25);
+}
+
+.mobile-drawer-archive {
+  background: rgba(255, 255, 255, 0.02);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.tech-badge-archive {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.15rem 0.4rem;
+  border-radius: 2px;
+}
+
+/* ==========================================================================
+   AIRCRAFT HOTSPOTS OVERLAY & FLYOUT PANEL
+   ========================================================================== */
+.aircraft-hotspots-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.hotspots-toolbar {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: rgba(8, 8, 12, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+.hotspots-chip-strip {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  scrollbar-width: none;
+}
+
+.hotspot-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(10, 10, 14, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all var(--transition-fast);
+}
+
+.hotspot-chip:hover,
+.hotspot-chip.active {
+  background: rgba(225, 6, 0, 0.15);
+  border-color: var(--accent-red);
+  color: #ffffff;
+}
+
+.hotspot-chip-indicator {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--text-muted);
+}
+
+.hotspot-chip.active .hotspot-chip-indicator {
+  background: var(--accent-red-bright);
+  box-shadow: 0 0 6px var(--accent-red-bright);
+}
+
+.hotspot-flyout-panel {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 5.5rem;
+  right: 1.5rem;
+  width: 320px;
+  max-width: calc(100vw - 3rem);
+  background: rgba(12, 12, 16, 0.95);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(225, 6, 0, 0.4);
+  border-left: 3px solid var(--accent-red);
+  padding: 1.25rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.8), 0 0 20px rgba(225, 6, 0, 0.15);
+  animation: flyout-appear 0.25s ease-out;
+}
+
+@keyframes flyout-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.flyout-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.flyout-title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ffffff;
+  letter-spacing: 0.04em;
+}
+
+.flyout-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.2rem;
+  transition: color var(--transition-fast);
+}
+
+.flyout-close:hover {
+  color: #ffffff;
+}
+
+.flyout-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.flyout-placeholder-card {
+  background: rgba(225, 6, 0, 0.06);
+  border: 1px dashed rgba(225, 6, 0, 0.35);
+  padding: 0.65rem 0.8rem;
+  border-radius: 2px;
+  margin-bottom: 0.85rem;
+}
+
+.flyout-placeholder-val {
+  color: #ffffff;
+  font-size: 0.75rem;
+  word-break: break-word;
+}
+
+.flyout-desc {
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-bottom: 0.85rem;
+}
+
+.flyout-footer-note {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}

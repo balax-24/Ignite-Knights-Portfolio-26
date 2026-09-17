@@ -3,26 +3,27 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, ContactShadows, Float } from '@react-three/drei';
 import { DroneModel } from './DroneModel';
 import { TechnicalHUD } from './TechnicalHUD';
+import { AircraftHotspots } from './AircraftHotspots';
 import * as THREE from 'three';
 
 /**
  * Camera & Drone Parallax Rig
  */
-function DroneRig({ children }) {
+function DroneRig({ children, enableParallax = true }) {
   const groupRef = useRef();
 
   useFrame((state) => {
-    // Subtle mouse parallax rotation
+    if (!enableParallax) return;
     const { pointer } = state;
     if (groupRef.current) {
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
-        pointer.x * 0.45,
+        pointer.x * 0.35,
         0.05
       );
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
-        -pointer.y * 0.25,
+        -pointer.y * 0.2,
         0.05
       );
     }
@@ -32,7 +33,7 @@ function DroneRig({ children }) {
 }
 
 /**
- * Scene Lights with aerospace key lighting and red rim light
+ * Aerospace key and rim lighting
  */
 function AerospaceLighting() {
   return (
@@ -71,19 +72,28 @@ function DroneFallback() {
     <div className="drone-fallback-view">
       <img
         src="/assets/drone-hero.jpg"
-        alt="Ignite Knights UAV Platform"
+        alt="Ignite Knights 4.0 Development UAV"
         className="drone-fallback-img"
       />
       <div className="drone-fallback-overlay">
-        <span className="tech-label tech-label-red">AEROSPACE PLATFORM // 2D TELEMETRY MODE</span>
+        <span className="tech-label tech-label-red">IK-04 // 4.0 DEVELOPMENT UAV PLATFORM</span>
       </div>
     </div>
   );
 }
 
-export function DroneScene({ isCompact = false }) {
+export function DroneScene({
+  isCompact = false,
+  showHotspots = true,
+  showHUD = true,
+  isExploded = false,
+  onToggleExploded,
+  enableOrbit = true,
+  autoRotate = false,
+}) {
   const [hasWebGLError, setHasWebGLError] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [activeSubsystem, setActiveSubsystem] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -94,7 +104,17 @@ export function DroneScene({ isCompact = false }) {
   return (
     <div className={`drone-scene-wrapper ${isCompact ? 'compact' : 'hero-mode'}`}>
       {/* Interactive HUD telemetry overlay */}
-      <TechnicalHUD />
+      {showHUD && <TechnicalHUD activeSubsystem={activeSubsystem} />}
+
+      {/* Interactive Subsystem Hotspots Overlay */}
+      {showHotspots && (
+        <AircraftHotspots
+          activeHotspot={activeSubsystem}
+          onSelectHotspot={setActiveSubsystem}
+          isExploded={isExploded}
+          onToggleExploded={onToggleExploded}
+        />
+      )}
 
       {hasWebGLError ? (
         <DroneFallback />
@@ -118,13 +138,18 @@ export function DroneScene({ isCompact = false }) {
 
           <Suspense fallback={null}>
             <Float
-              speed={1.4}
-              rotationIntensity={0.2}
-              floatIntensity={0.3}
+              speed={isExploded ? 0 : 1.4}
+              rotationIntensity={isExploded ? 0 : 0.15}
+              floatIntensity={isExploded ? 0 : 0.25}
               floatingRange={[-0.08, 0.08]}
             >
-              <DroneRig>
-                <DroneModel scale={isCompact ? 0.95 : 1.15} />
+              <DroneRig enableParallax={!isExploded}>
+                <DroneModel
+                  scale={isCompact ? 0.95 : 1.15}
+                  isExploded={isExploded}
+                  activeSubsystem={activeSubsystem}
+                  onSubsystemClick={setActiveSubsystem}
+                />
               </DroneRig>
             </Float>
 
@@ -140,16 +165,18 @@ export function DroneScene({ isCompact = false }) {
           </Suspense>
 
           {/* Smooth user inspection control */}
-          <OrbitControls
-            enableZoom={false}
-            enablePan={false}
-            autoRotate
-            autoRotateSpeed={0.8}
-            maxPolarAngle={Math.PI / 1.7}
-            minPolarAngle={Math.PI / 3.4}
-            dampingFactor={0.06}
-            rotateSpeed={0.6}
-          />
+          {enableOrbit && (
+            <OrbitControls
+              enableZoom={false}
+              enablePan={false}
+              autoRotate={autoRotate}
+              autoRotateSpeed={0.6}
+              maxPolarAngle={Math.PI / 1.7}
+              minPolarAngle={Math.PI / 3.4}
+              dampingFactor={0.06}
+              rotateSpeed={0.6}
+            />
+          )}
         </Canvas>
       )}
     </div>

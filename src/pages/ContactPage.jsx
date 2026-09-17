@@ -1,29 +1,53 @@
 import React, { useState } from 'react';
 import { PageHero } from '../components/common/PageHero';
+import { GenerationBadge } from '../components/common/GenerationBadge';
 import { teamContactInfo } from '../data/navigation';
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle2, Radio, Terminal, AlertCircle } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Clock,
+  Send,
+  CheckCircle2,
+  Radio,
+  Terminal,
+  Crosshair,
+  ArrowUpRight,
+  Shield,
+  Activity,
+} from 'lucide-react';
 
 export function ContactPage() {
+  const contactReasons = [
+    'COLLABORATE',
+    'SPONSOR',
+    'PARTNER',
+    'TECHNICAL INQUIRY',
+    'GENERAL CONTACT',
+  ];
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     organization: '',
-    subject: 'Collaboration / Inquiry',
+    reason: 'COLLABORATE',
     message: '',
   });
 
-  const [formStatus, setFormStatus] = useState('IDLE'); // 'IDLE' | 'SENDING' | 'SUCCESS' | 'ERROR'
+  const [formStatus, setFormStatus] = useState('IDLE'); // 'IDLE' | 'SENDING' | 'SUCCESS'
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleReasonSelect = (reason) => {
+    setFormData((prev) => ({ ...prev, reason }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormStatus('SENDING');
-
-    // Simulate reliable transmission / processing
     setTimeout(() => {
       setFormStatus('SUCCESS');
     }, 1200);
@@ -31,237 +55,252 @@ export function ContactPage() {
 
   return (
     <div className="contact-page">
-      {/* Hero */}
+      {/* Page Hero */}
       <PageHero
-        badge="TRANSMISSION CHANNEL // DIRECT ACCESS"
-        title="LET'S BUILD"
-        highlight="WHAT FLIES NEXT."
-        subtitle="Interested in collaborating with our team, supporting our work, discussing a project or connecting with us? Reach out directly to our mission control."
-        telemetry="UPLINK STATUS : ACTIVE // ENCRYPTED CONTACT INTERFACE"
-      />
+        badge="IK-04 // MISSION COMMUNICATION INTERFACE"
+        title="BUILD THE NEXT"
+        highlight="FLIGHT."
+        subtitle="Connect directly with the Ignite Knights 4.0 autonomous aerial systems engineering cohort for hardware sponsorships, academic research, and technical collaboration."
+        telemetry="UPLINK STATUS : ACTIVE // 4.0 COMMUNICATION PROTOCOL"
+      >
+        <div className="mt-2">
+          <GenerationBadge variant="current" size="sm" />
+        </div>
+      </PageHero>
 
-      {/* Main Contact Grid */}
-      <section className="contact-main-section">
-        <div className="container">
-          <div className="contact-layout-split">
-            {/* Left Column: Official Contact Metadata */}
-            <div className="contact-info-col">
-              <div className="contact-info-card corner-bracket-box">
-                <div className="info-card-header">
-                  <div className="flex items-center gap-2">
-                    <span className="status-dot active pulse"></span>
-                    <span className="tech-label tech-label-red">COMMAND HEADQUARTERS</span>
-                  </div>
-                  <span className="tech-label">CHENNAI, IN</span>
+      <div className="container py-10">
+        <div className="contact-mission-layout">
+          {/* LEFT: Official Command Post Details */}
+          <div className="contact-details-panel">
+            <div className="command-post-card corner-bracket-box">
+              <div className="post-header">
+                <div className="flex items-center gap-2">
+                  <span className="status-dot active"></span>
+                  <span className="tech-label text-red">COMMAND POST & LAB</span>
                 </div>
+                <span className="font-mono text-xs text-gray-500">{teamContactInfo.coordinates}</span>
+              </div>
 
-                <h2 className="info-card-heading">
-                  SAIRAM INSTITUTION CAMPUS
-                </h2>
-                <p className="info-card-sub">
-                  Our avionics laboratory, composite fabrication workshop, and telemetry command
-                  center are situated at Sairam Institution, West Tambaram, Chennai.
-                </p>
+              <h2 className="post-institution-title text-white font-bold text-xl mt-3">
+                SAIRAM INSTITUTION CAMPUS
+              </h2>
+              <p className="post-desc text-xs text-gray-300 mt-1 leading-relaxed">
+                Avionics synthesis, carbon-fiber composite layup bay, and test-bench hardware facilities located at Sairam Institution, Chennai.
+              </p>
 
-                <div className="contact-channels-list">
-                  {/* Phone Primary */}
-                  <div className="channel-box">
-                    <Phone size={18} className="text-red flex-shrink-0" />
-                    <div className="channel-content">
-                      <span className="channel-label">PRIMARY TELEPHONE (LEAD)</span>
-                      <a href={`tel:${teamContactInfo.phonePrimary}`} className="channel-value">
-                        {teamContactInfo.phonePrimary}
-                      </a>
-                    </div>
+              {/* Direct Communication Channels */}
+              <div className="post-channels-list mt-6 space-y-4">
+                <div className="channel-row flex items-start gap-3">
+                  <div className="channel-icon-box">
+                    <Mail size={16} className="text-red" />
                   </div>
-
-                  {/* Phone Secondary */}
-                  <div className="channel-box">
-                    <Phone size={18} className="text-red flex-shrink-0" />
-                    <div className="channel-content">
-                      <span className="channel-label">SECONDARY TELEPHONE (OPS)</span>
-                      <a href={`tel:${teamContactInfo.phoneSecondary}`} className="channel-value">
-                        {teamContactInfo.phoneSecondary}
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Email */}
-                  <div className="channel-box">
-                    <Mail size={18} className="text-red flex-shrink-0" />
-                    <div className="channel-content">
-                      <span className="channel-label">ELECTRONIC DISPATCH</span>
-                      <a href={`mailto:${teamContactInfo.email}`} className="channel-value">
-                        {teamContactInfo.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Location */}
-                  <div className="channel-box">
-                    <MapPin size={20} className="text-red flex-shrink-0" />
-                    <div className="channel-content">
-                      <span className="channel-label">FACILITY LOCATION</span>
-                      <span className="channel-value">
-                        {teamContactInfo.institution},<br />
-                        {teamContactInfo.address}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Operating Hours */}
-                  <div className="channel-box">
-                    <Clock size={18} className="text-red flex-shrink-0" />
-                    <div className="channel-content">
-                      <span className="channel-label">COMMAND POST AVAILABILITY</span>
-                      <span className="channel-value">{teamContactInfo.hours}</span>
-                    </div>
+                  <div>
+                    <span className="channel-lbl font-mono text-xs text-gray-500 block">OFFICIAL EMAIL</span>
+                    <a href={`mailto:${teamContactInfo.email}`} className="channel-val font-mono text-sm text-white hover:text-red">
+                      {teamContactInfo.email}
+                    </a>
                   </div>
                 </div>
 
-                <div className="contact-coords-bar">
-                  <span className="tech-label">GPS COORDS: 12.9249° N, 80.0543° E</span>
-                  <span className="tech-label tech-label-red">GRID: TAMBARAM-44</span>
+                <div className="channel-row flex items-start gap-3">
+                  <div className="channel-icon-box">
+                    <Phone size={16} className="text-red" />
+                  </div>
+                  <div>
+                    <span className="channel-lbl font-mono text-xs text-gray-500 block">PRIMARY TELEPHONE (LEAD)</span>
+                    <a href={`tel:${teamContactInfo.phonePrimary}`} className="channel-val font-mono text-sm text-white hover:text-red">
+                      {teamContactInfo.phonePrimary}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="channel-row flex items-start gap-3">
+                  <div className="channel-icon-box">
+                    <Phone size={16} className="text-red" />
+                  </div>
+                  <div>
+                    <span className="channel-lbl font-mono text-xs text-gray-500 block">SECONDARY TELEPHONE (LAB)</span>
+                    <a href={`tel:${teamContactInfo.phoneSecondary}`} className="channel-val font-mono text-sm text-white hover:text-red">
+                      {teamContactInfo.phoneSecondary}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="channel-row flex items-start gap-3">
+                  <div className="channel-icon-box">
+                    <MapPin size={16} className="text-red" />
+                  </div>
+                  <div>
+                    <span className="channel-lbl font-mono text-xs text-gray-500 block">BASE COORDINATES</span>
+                    <span className="channel-val font-mono text-xs text-gray-300 block">
+                      {teamContactInfo.institution},<br />
+                      {teamContactInfo.address}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="channel-row flex items-start gap-3">
+                  <div className="channel-icon-box">
+                    <Clock size={16} className="text-red" />
+                  </div>
+                  <div>
+                    <span className="channel-lbl font-mono text-xs text-gray-500 block">LAB HOURS</span>
+                    <span className="channel-val font-mono text-xs text-gray-400">
+                      {teamContactInfo.hours}
+                    </span>
+                  </div>
                 </div>
               </div>
+
+              {/* Data Integrity Notice */}
+              <div className="post-footer-notice font-mono text-xs text-gray-500 mt-6 pt-3 border-t border-white/5">
+                NOTICE: Direct contact channels are verified for official collegiate and industrial inquiries.
+              </div>
             </div>
+          </div>
 
-            {/* Right Column: Mission Contact Transmission Form */}
-            <div className="contact-form-col">
-              <div className="contact-form-card corner-bracket-box">
-                <div className="form-card-header">
-                  <div className="flex items-center gap-2">
-                    <Terminal size={16} className="text-red" />
-                    <span className="tech-label tech-label-red">DISPATCH TRANSMISSION</span>
-                  </div>
-                  <span className="tech-label">PACKET : FORM_MSG</span>
+          {/* RIGHT: Mission Dispatch Form */}
+          <div className="contact-form-panel">
+            <div className="mission-form-card corner-bracket-box">
+              <div className="form-card-header">
+                <div className="flex items-center gap-2">
+                  <Terminal size={14} className="text-red" />
+                  <span className="tech-label text-red">TRANSMISSION UPLINK</span>
                 </div>
+                <span className="font-mono text-xs text-gray-500">FORMAT: ENCRYPTED RF FORM</span>
+              </div>
 
-                {formStatus === 'SUCCESS' ? (
-                  <div className="form-success-state">
-                    <div className="success-icon-wrap">
-                      <CheckCircle2 size={48} className="text-green" />
+              {formStatus === 'SUCCESS' ? (
+                <div className="form-success-state py-12 text-center">
+                  <CheckCircle2 size={42} className="text-red mx-auto mb-3" />
+                  <h3 className="text-white font-mono font-bold text-lg">
+                    TRANSMISSION DISPATCHED TO MISSION CONTROL
+                  </h3>
+                  <p className="text-xs text-gray-300 max-w-sm mx-auto mt-2 leading-relaxed">
+                    Your transmission has been logged into the 4.0 operations queue. A systems engineer will acknowledge receipt shortly.
+                  </p>
+                  <button
+                    type="button"
+                    className="btn-aerospace btn-aerospace-outline mt-6"
+                    onClick={() => {
+                      setFormStatus('IDLE');
+                      setFormData({
+                        name: '',
+                        email: '',
+                        organization: '',
+                        reason: 'COLLABORATE',
+                        message: '',
+                      });
+                    }}
+                  >
+                    <span>TRANSMIT ANOTHER MESSAGE</span>
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="mission-form mt-4 space-y-4">
+                  {/* Reason for Contact Selector Strip */}
+                  <div>
+                    <label className="tech-label text-gray-400 mb-2 block">
+                      REASON FOR ENGAGEMENT:
+                    </label>
+                    <div className="reason-chips-grid">
+                      {contactReasons.map((r) => (
+                        <button
+                          key={r}
+                          type="button"
+                          className={`reason-chip ${formData.reason === r ? 'active' : ''}`}
+                          onClick={() => handleReasonSelect(r)}
+                        >
+                          <span className="chip-indicator"></span>
+                          <span className="font-mono text-xs">{r}</span>
+                        </button>
+                      ))}
                     </div>
-                    <h3 className="success-title">TRANSMISSION RECEIVED</h3>
-                    <p className="success-desc">
-                      Thank you, <strong className="text-white">{formData.name}</strong>. Your message
-                      has been logged into our telemetry dispatch system. Our team leads will review
-                      and respond within 24 hours.
-                    </p>
-                    <button
-                      className="btn-aerospace btn-aerospace-secondary mt-6"
-                      onClick={() => {
-                        setFormStatus('IDLE');
-                        setFormData({
-                          name: '',
-                          email: '',
-                          organization: '',
-                          subject: 'Collaboration / Inquiry',
-                          message: '',
-                        });
-                      }}
-                    >
-                      SEND ANOTHER TRANSMISSION
-                    </button>
                   </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="contact-form-body">
-                    {/* Full Name */}
-                    <div className="form-field-group">
-                      <label htmlFor="name" className="form-field-label">
-                        FULL NAME <span className="text-red">*</span>
+
+                  {/* Name & Email Row */}
+                  <div className="form-row-2">
+                    <div className="form-group">
+                      <label className="tech-label text-gray-400 mb-1 block">
+                        FULL NAME *
                       </label>
                       <input
                         type="text"
-                        id="name"
                         name="name"
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="e.g. Alex Reynolds"
+                        placeholder="Dr. / Eng. / Name"
                         className="aerospace-input"
                       />
                     </div>
 
-                    {/* Email Address */}
-                    <div className="form-field-group">
-                      <label htmlFor="email" className="form-field-label">
-                        EMAIL ADDRESS <span className="text-red">*</span>
+                    <div className="form-group">
+                      <label className="tech-label text-gray-400 mb-1 block">
+                        EMAIL ADDRESS *
                       </label>
                       <input
                         type="email"
-                        id="email"
                         name="email"
                         required
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="e.g. alex@aerospace.org"
+                        placeholder="operator@organization.com"
                         className="aerospace-input"
                       />
                     </div>
+                  </div>
 
-                    {/* Organization */}
-                    <div className="form-field-group">
-                      <label htmlFor="organization" className="form-field-label">
-                        ORGANIZATION / INSTITUTION
-                      </label>
-                      <input
-                        type="text"
-                        id="organization"
-                        name="organization"
-                        value={formData.organization}
-                        onChange={handleChange}
-                        placeholder="e.g. Sairam / Aerospace Corp / Autonomous Lab"
-                        className="aerospace-input"
-                      />
-                    </div>
+                  {/* Organization */}
+                  <div className="form-group">
+                    <label className="tech-label text-gray-400 mb-1 block">
+                      ORGANIZATION / INSTITUTION
+                    </label>
+                    <input
+                      type="text"
+                      name="organization"
+                      value={formData.organization}
+                      onChange={handleChange}
+                      placeholder="Aerospace Lab / Company / University"
+                      className="aerospace-input"
+                    />
+                  </div>
 
-                    {/* Message */}
-                    <div className="form-field-group">
-                      <label htmlFor="message" className="form-field-label">
-                        TRANSMISSION CONTENT <span className="text-red">*</span>
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        required
-                        rows={5}
-                        value={formData.message}
-                        onChange={handleChange}
-                        placeholder="Describe your inquiry, sponsorship interest, or collaboration proposal..."
-                        className="aerospace-textarea"
-                      ></textarea>
-                    </div>
+                  {/* Message */}
+                  <div className="form-group">
+                    <label className="tech-label text-gray-400 mb-1 block">
+                      TECHNICAL TRANSMISSION / MESSAGE *
+                    </label>
+                    <textarea
+                      name="message"
+                      required
+                      rows={5}
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Outline collaboration scope, hardware support, or inquiry parameters..."
+                      className="aerospace-textarea"
+                    ></textarea>
+                  </div>
 
-                    {/* Submit Button */}
-                    <button
-                      type="submit"
-                      disabled={formStatus === 'SENDING'}
-                      className="btn-aerospace btn-aerospace-primary form-submit-btn"
-                    >
-                      {formStatus === 'SENDING' ? (
-                        <>
-                          <Radio size={16} className="animate-spin text-white" />
-                          <span>ENCRYPTING & DISPATCHING...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>SEND MESSAGE →</span>
-                          <Send size={15} />
-                        </>
-                      )}
-                    </button>
-
-                    <p className="form-response-note">
-                      We typically respond within 24 hours during standard business days.
-                    </p>
-                  </form>
-                )}
-              </div>
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    disabled={formStatus === 'SENDING'}
+                    className="btn-aerospace btn-aerospace-red w-full flex items-center justify-center gap-2"
+                  >
+                    <Send size={15} />
+                    <span>
+                      {formStatus === 'SENDING'
+                        ? 'ENCRYPTING & TRANSMITTING...'
+                        : 'DISPATCH TRANSMISSION TO 4.0 LAB'}
+                    </span>
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

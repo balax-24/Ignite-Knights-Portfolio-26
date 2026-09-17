@@ -7,6 +7,8 @@ export function SectionHeader({
   highlight = '',
   subtitle = '',
   align = 'left',
+  coord = 'IK-04 // 4.0 AUTONOMOUS SYSTEMS',
+  generation = '4.0',
 }) {
   return (
     <div className={`section-header-wrap ${align === 'center' ? 'text-center mx-auto' : ''}`}>
@@ -15,7 +17,7 @@ export function SectionHeader({
           <span className="tech-tag tech-tag-red">{number}</span>
           <span className="tech-label">{tag}</span>
         </div>
-        <span className="section-coord">SYS // ADDC-2026 // NIDAR</span>
+        <span className="section-coord">{coord}</span>
       </div>
 
       <h2 className="section-title-large">
