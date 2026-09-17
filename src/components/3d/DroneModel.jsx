@@ -39,51 +39,49 @@ export function DroneModel({
   // Exploded view animation state
   const explodedLerpRef = useRef(0);
 
-  // Engineering Materials (PBR)
+  // Engineering Materials (PBR) — Calibrated for Aerospace Studio Photography
   const carbonMaterial = new THREE.MeshStandardMaterial({
-    color: 0x141418,
-    roughness: 0.45,
-    metalness: 0.25,
+    color: 0x24242c,
+    roughness: 0.28,
+    metalness: 0.42,
   });
 
   const anodizedRedMaterial = new THREE.MeshStandardMaterial({
     color: 0xe10600,
-    roughness: 0.35,
+    roughness: 0.25,
     metalness: 0.85,
   });
 
   const darkTitaniumMaterial = new THREE.MeshStandardMaterial({
-    color: 0x222228,
-    roughness: 0.3,
-    metalness: 0.8,
+    color: 0x484856,
+    roughness: 0.22,
+    metalness: 0.88,
   });
 
   const copperCoilMaterial = new THREE.MeshStandardMaterial({
-    color: 0xd9753b,
-    roughness: 0.3,
-    metalness: 0.7,
+    color: 0xeb8244,
+    roughness: 0.24,
+    metalness: 0.75,
   });
 
   const goldPinsMaterial = new THREE.MeshStandardMaterial({
-    color: 0xe5a823,
-    roughness: 0.2,
-    metalness: 0.9,
+    color: 0xefb028,
+    roughness: 0.18,
+    metalness: 0.92,
   });
 
   const lensGlassMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0x051525,
-    roughness: 0.1,
+    color: 0x081828,
+    roughness: 0.08,
     metalness: 0.1,
-    transmission: 0.85,
-    thickness: 0.5,
+    transmission: 0.88,
+    thickness: 0.6,
   });
 
   const propMaterial = new THREE.MeshStandardMaterial({
-    color: 0x181820,
-    roughness: 0.4,
-    metalness: 0.3,
-    transparent: true,
-    opacity: 0.92,
+    color: 0x2a2a36,
+    roughness: 0.28,
+    metalness: 0.38,
   });
 
   // Arm positions: 45° X-quad layout (X, Z)

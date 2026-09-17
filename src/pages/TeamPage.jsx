@@ -1,20 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHero } from '../components/common/PageHero';
 import { GenerationBadge } from '../components/common/GenerationBadge';
-import { teamMeta, teamCategories, teamDepartments, real4TeamMembers } from '../data/team';
-import {
-  Users,
-  Shield,
-  Cpu,
-  Layers,
-  Activity,
-  CheckCircle2,
-  Archive,
-  ArrowUpRight,
-  Clock,
-  Briefcase,
-} from 'lucide-react';
+import { teamMeta, teamCategories, teamDepartments } from '../data/team';
+import { ArrowUpRight } from 'lucide-react';
 
 export function TeamPage() {
   const [activeCategory, setActiveCategory] = useState('ALL');
@@ -25,131 +13,80 @@ export function TeamPage() {
       : teamDepartments.filter((d) => d.category === activeCategory);
 
   return (
-    <div className="team-page">
-      {/* Page Hero Header */}
-      <PageHero
-        badge="IGNITE KNIGHTS 4.0 // DIRECTORY"
-        title="4.0 TEAM"
-        highlight="DIRECTORY"
-        subtitle={teamMeta.description}
-        telemetry="IK-04 // ROSTER CERTIFICATION MODE"
-      >
-        <div className="flex items-center gap-3 mt-2">
-          <GenerationBadge variant="current" size="sm" />
-          <span className="tech-badge-dot active"></span>
-          <span className="font-mono text-xs text-red">{teamMeta.status}</span>
+    <div className="team-editorial-page">
+      {/* Editorial Page Header */}
+      <section className="editorial-page-header">
+        <div className="container">
+          <div className="editorial-header-category">
+            <GenerationBadge variant="current" />
+          </div>
+          <h1 className="editorial-page-title">
+            4.0 TEAM DIRECTORY<br />
+            <span className="text-red">ENGINEERING COHORT</span>
+          </h1>
+          <p className="editorial-page-lead">
+            {teamMeta.description}
+          </p>
         </div>
-      </PageHero>
+      </section>
 
-      <div className="container py-8">
-        {/* Prominent Official Roster Status Banner */}
-        <div className="roster-status-banner mb-10">
-          <div className="banner-left">
-            <div className="flex items-center gap-2 mb-1">
-              <Clock size={16} className="text-red animate-pulse" />
-              <span className="tech-label text-red">OFFICIAL ANNOUNCEMENT NOTICE</span>
-            </div>
-            <h3 className="banner-title text-white font-bold text-lg">
-              4.0 ENGINEERING ROSTER CERTIFICATION IN PROGRESS
-            </h3>
-            <p className="banner-desc text-sm text-gray-400">
-              The incoming 4.0 cohort is finalizing subsystem leadership allocations and lab assignments across our five specialized engineering divisions. The directory structure below outlines our departmental organization.
-            </p>
-          </div>
-
-          <div className="banner-right flex items-center">
-            <Link to="/archive" className="btn-aerospace btn-aerospace-archive-cta">
-              <Archive size={14} />
-              <span>VIEW 3.0 ROSTER ARCHIVE →</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Division Filter Navigation */}
-        <div className="team-category-nav mb-10">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="tech-tag tech-tag-red">DEPARTMENTAL DIVISIONS</span>
-            <span className="font-mono text-xs text-gray-400">SELECT ENGINEERING SPECIALTY</span>
-          </div>
-
-          <div className="category-tabs-wrap">
-            {teamCategories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                className={`category-tab-btn ${activeCategory === cat ? 'active' : ''}`}
-                onClick={() => setActiveCategory(cat)}
-              >
-                <span className="tab-dot"></span>
-                <span className="font-mono text-xs">{cat}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Departmental Structure & Allocation Slots */}
-        <div className="departments-stack space-y-10">
-          {filteredDepartments.map((dept) => (
-            <div key={dept.code} className="department-block">
-              <div className="dept-header-bar">
-                <div className="flex items-center gap-3">
-                  <span className="dept-code-tag font-mono">{dept.code}</span>
-                  <h3 className="dept-name text-white font-bold">{dept.name}</h3>
-                </div>
-                <span className="dept-category-badge font-mono">{dept.category}</span>
-              </div>
-
-              <p className="dept-description text-sm text-gray-400 mb-6">{dept.description}</p>
-
-              {/* Roster Slots Grid */}
-              <div className="slots-grid">
-                {dept.slots.map((slot, sIdx) => (
-                  <div key={sIdx} className="slot-card">
-                    <div className="slot-card-header">
-                      <span className="slot-callsign font-mono text-red">{slot.callSign}</span>
-                      <span className="slot-status-pill font-mono">{slot.status}</span>
-                    </div>
-
-                    <h4 className="slot-role text-white font-semibold mt-2">{slot.role}</h4>
-                    <div className="slot-dept font-mono text-xs text-gray-400 mb-3">{slot.department}</div>
-
-                    <div className="slot-responsibilities-box font-mono text-xs">
-                      <span className="text-gray-500 block mb-1">CORE MANDATE:</span>
-                      <span className="text-gray-300">{slot.responsibilities}</span>
-                    </div>
-
-                    <div className="slot-footer-state mt-4 flex items-center justify-between font-mono text-xs text-gray-500">
-                      <span>VERIFICATION: PENDING</span>
-                      <span className="text-red">GEN 4.0</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+      <section className="container">
+        {/* Editorial Discipline Filter */}
+        <div className="team-filter-bar">
+          {teamCategories.map((cat) => (
+            <button
+              key={cat}
+              className={`team-filter-btn ${activeCategory === cat ? 'active' : ''}`}
+              onClick={() => setActiveCategory(cat)}
+            >
+              {cat}
+            </button>
           ))}
         </div>
 
-        {/* Previous Generation 3.0 Roster Portal */}
-        <section className="team-archive-bridge mt-16">
-          <div className="bridge-inner">
-            <div className="bridge-left">
-              <GenerationBadge variant="archive" size="sm" />
-              <h3 className="bridge-title mt-2">
-                LOOKING FOR IGNITE KNIGHTS 3.0 MEMBERS & LEADERSHIP?
-              </h3>
-              <p className="bridge-desc">
-                The 3.0 founding engineers (Mithra Niranjan P, Rakshanasri E, Dhiraj J S, Shakthivel T V, and core teammates), faculty guides, and trainees are permanently recorded in the 3.0 Historical Archive.
-              </p>
+        {/* Department Roster Sections */}
+        {filteredDepartments.map((dept) => (
+          <div key={dept.code} className="team-department-editorial-block">
+            <div className="department-title-banner">
+              <div>
+                <span className="editorial-tag red-dot">{dept.code}</span>
+                <h2 className="dept-name-large">{dept.name}</h2>
+              </div>
+              <span className="editorial-tag">{dept.category}</span>
             </div>
-            <div className="bridge-right">
-              <Link to="/archive" className="btn-aerospace btn-aerospace-archive-cta">
-                <Archive size={15} />
-                <span>INSPECT 3.0 ROSTER ARCHIVE →</span>
-              </Link>
+
+            <p style={{ color: 'var(--text-muted)', marginBottom: '2.5rem', maxWidth: '800px', fontSize: '1.05rem', lineHeight: '1.7' }}>
+              {dept.description}
+            </p>
+
+            <div className="team-roster-editorial-grid">
+              {dept.slots.map((slot, idx) => (
+                <div key={idx} className="team-member-editorial-card">
+                  <span className="editorial-tag">{slot.callSign}</span>
+                  <h3 className="member-role-title">{slot.role}</h3>
+                  <span className="member-status-line">{slot.status}</span>
+                  <p className="member-resp-text">{slot.responsibilities}</p>
+                </div>
+              ))}
             </div>
           </div>
-        </section>
-      </div>
+        ))}
+
+        {/* 3.0 Historical Team Archive Notice */}
+        <div className="archive-hero-banner" style={{ marginTop: '6rem' }}>
+          <span className="archive-watermark-tag">HISTORICAL PERSONNEL RECORD</span>
+          <h3 className="archive-banner-title">LOOKING FOR 3.0 PERSONNEL?</h3>
+          <p className="archive-banner-desc">
+            All founding members, team leads, mentors, and trainees of Ignite Knights 3.0 (2024–2026) are permanently preserved and honored in the historical archive.
+          </p>
+          <div style={{ marginTop: '2rem' }}>
+            <Link to="/archive" className="editorial-text-link" style={{ fontSize: '1.05rem' }}>
+              <span>VIEW 3.0 HISTORICAL ROSTER</span>
+              <ArrowUpRight size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

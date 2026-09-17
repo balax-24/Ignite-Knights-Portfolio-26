@@ -1,229 +1,127 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { PageHero } from '../components/common/PageHero';
 import { GenerationBadge } from '../components/common/GenerationBadge';
-import { SectionHeader } from '../components/common/SectionHeader';
 import { legacy3Era, transitionBridge, current4Era } from '../data/journey';
-import {
-  Clock,
-  Archive,
-  ArrowRight,
-  ArrowUpRight,
-  ShieldAlert,
-  Zap,
-  CheckCircle2,
-  Activity,
-  Crosshair,
-  Compass,
-  Radio,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 export function JourneyPage() {
   return (
-    <div className="journey-page">
-      {/* Page Hero */}
-      <PageHero
-        badge="IGNITE KNIGHTS // EVOLUTIONARY TIMELINE"
-        title="THE EVOLUTIONARY"
-        highlight="RECORD"
-        subtitle="A continuous trajectory of aeronautical refinement. Documenting our foundational 3.0 era in the archive, and charting the systemic transition into Ignite Knights 4.0."
-        telemetry="SYSTEM RECORD // DUAL-ERA REPOSITORY"
-      >
-        <div className="flex items-center gap-3 mt-2">
-          <GenerationBadge variant="archive" size="sm" />
-          <span className="text-gray-500 font-mono text-xs">→ TRANSITION →</span>
-          <GenerationBadge variant="current" size="sm" />
+    <div className="journey-editorial-page">
+      {/* Editorial Page Header */}
+      <section className="editorial-page-header">
+        <div className="container">
+          <div className="editorial-header-category">
+            <GenerationBadge variant="current" />
+          </div>
+          <h1 className="editorial-page-title">
+            THE JOURNEY<br />
+            <span className="text-red">DUAL-ERA RECORD</span>
+          </h1>
+          <p className="editorial-page-lead">
+            The evolution of Ignite Knights from our founding flights in 2024 through our generational transition into autonomous aerial robotics.
+          </p>
         </div>
-      </PageHero>
+      </section>
 
-      <div className="container py-12">
-        {/* ================================================================
-            ERA 1: PREVIOUS GENERATION — IGNITE KNIGHTS 3.0 (2024–2026)
-           ================================================================ */}
-        <section className="journey-era-section mb-16">
-          <div className="era-header-bar archive-mode mb-8">
-            <div className="flex items-center gap-3">
-              <GenerationBadge variant="archive" size="md" />
-              <span className="font-mono text-xs text-gray-400">ERA 01 // HISTORICAL FOUNDATION</span>
-            </div>
-            <span className="font-mono text-xs text-gray-500">STATUS: CONCLUDED & ARCHIVED</span>
-          </div>
-
-          <div className="era-intro-box archive-border mb-10">
-            <h2 className="era-title text-gray-200">
-              IGNITE KNIGHTS 3.0 // THE FOUNDING ERA (2024 — 2026)
+      <section className="container" style={{ display: 'flex', flexDirection: 'column', gap: '6rem' }}>
+        {/* ==================================================================
+            CHAPTER 01: IGNITE KNIGHTS 3.0 (ARCHIVE)
+           ================================================================== */}
+        <div className="journey-chapter-block" style={{ background: '#0a0a0c' }}>
+          <div className="chapter-header" style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1.5rem', marginBottom: '2rem' }}>
+            <span className="chapter-marker">CHAPTER 01 // ARCHIVE</span>
+            <h2 className="chapter-title" style={{ fontSize: '2.5rem', marginTop: '0.4rem' }}>
+              IGNITE KNIGHTS 3.0
             </h2>
-            <p className="era-desc text-gray-400 text-sm">
-              The 3.0 era established our identity in collegiate aeronautics. From building our first radial hexacopter to placing in the national Top 10 at SAE ADDC 2025, these milestones formed the mechanical and organizational foundation of the team.
-            </p>
+            <span className="chapter-period">2024 — 2026 // PREVIOUS GENERATION</span>
           </div>
 
-          {/* Historical Timeline Cards */}
-          <div className="era-timeline-stack space-y-8">
-            {legacy3Era.milestones.map((m) => (
-              <div key={m.year} className="timeline-archive-card">
-                <div className="card-top-strip">
-                  <div className="flex items-center gap-2">
-                    <span className="year-pill font-mono">{m.year}</span>
-                    <span className="tag-pill font-mono text-xs text-gray-400">{m.tag}</span>
-                  </div>
-                  <span className="archive-badge-text font-mono text-xs">3.0 ARCHIVED</span>
-                </div>
+          <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '850px', marginBottom: '2.5rem' }}>
+            The founding era of our organization. A passionate interdisciplinary group of student engineers proved collegiate aerial robotics on national stages, engineering our first radial hexacopter and earning a national Top 10 finish at SAE ADDC 2025.
+          </p>
 
-                <h3 className="timeline-card-title text-white font-bold mt-2">{m.title}</h3>
-                <p className="timeline-card-summary text-gray-300 text-sm mt-2">{m.summary}</p>
-
-                <div className="timeline-achievements-box mt-4">
-                  <span className="tech-label text-gray-500 mb-2 block">VERIFIED 3.0 MILESTONES:</span>
-                  <div className="achievements-list space-y-1">
-                    {m.achievements.map((ach, aIdx) => (
-                      <div key={aIdx} className="achievement-row flex items-center gap-2">
-                        <span className="text-gray-500 text-xs">■</span>
-                        <span className="font-mono text-xs text-gray-300">{ach}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="timeline-metrics-foot mt-4 pt-3 border-t border-white/5 flex items-center justify-between font-mono text-xs text-gray-500">
-                  <span>RECORD: VERIFIED IN ARCHIVE</span>
-                  <span>PREVIOUS GENERATION</span>
-                </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {legacy3Era.milestones.map((m, idx) => (
+              <div key={idx} style={{ background: '#111114', padding: '2rem', border: '1px solid var(--border-subtle)' }}>
+                <span className="editorial-tag">{m.year}</span>
+                <h4 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0.8rem 0' }}>{m.title}</h4>
+                <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{m.summary}</p>
               </div>
             ))}
           </div>
 
-          {/* Legacy Line Termination Visual */}
-          <div className="timeline-termination-rule mt-12">
-            <div className="termination-line"></div>
-            <div className="termination-marker font-mono">
-              <span className="text-red">●</span> 3.0 TELEMETRY STREAM TERMINATED // RECORD PRESERVED
-            </div>
-            <div className="termination-line"></div>
+          <div style={{ marginTop: '2.5rem' }}>
+            <Link to="/archive" className="editorial-text-link">
+              <span>EXPLORE COMPLETE 3.0 ARCHIVE</span>
+              <ArrowUpRight size={18} />
+            </Link>
           </div>
-        </section>
+        </div>
 
-        {/* ================================================================
-            THE SYSTEM RESET TRANSITION BRIDGE
-           ================================================================ */}
-        <section className="journey-transition-bridge mb-16">
-          <div className="transition-box corner-bracket-box">
-            <div className="transition-code-bar font-mono text-xs">
-              <span className="text-red animate-pulse">SYSTEM RESET EVENT //</span>
-              <span className="text-gray-400 ml-2">{transitionBridge.code}</span>
+        {/* ==================================================================
+            CHAPTER 02: THE TRANSITION (SYSTEM RESET)
+           ================================================================== */}
+        <div className="journey-chapter-block" style={{ background: '#060606', borderLeft: '3px solid var(--accent-red)' }}>
+          <span className="chapter-marker red-dot">CHAPTER 02 // SYSTEM RESET</span>
+          <h2 className="chapter-title" style={{ fontSize: '2.5rem', marginTop: '0.4rem' }}>
+            CLEAN-SHEET TRANSITION
+          </h2>
+          <span className="chapter-period">EARLY 2026 // ARCHITECTURE HANDOFF</span>
+
+          <p style={{ fontSize: '1.15rem', color: 'var(--text-primary)', lineHeight: '1.8', maxWidth: '850px', marginTop: '1.5rem' }}>
+            {transitionBridge.description}
+          </p>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem', marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
+            <div>
+              <span className="editorial-tag">DECOMMISSIONED</span>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginTop: '0.5rem' }}>
+                Legacy 3.0 quadcopter and hexacopter platforms retired from active flight rosters. Telemetry streams archived.
+              </p>
             </div>
+            <div>
+              <span className="editorial-tag red-dot">INITIALIZED</span>
+              <p style={{ fontSize: '0.95rem', color: 'var(--text-primary)', marginTop: '0.5rem' }}>
+                4.0 systems engineering protocol enacted. Toray carbon airframe geometry and high-speed edge compute synthesis launched.
+              </p>
+            </div>
+          </div>
+        </div>
 
-            <h2 className="transition-hero-title">
-              {transitionBridge.title}
+        {/* ==================================================================
+            CHAPTER 03: IGNITE KNIGHTS 4.0 (CURRENT GENERATION)
+           ================================================================== */}
+        <div className="journey-chapter-block" style={{ background: '#0d0d10', border: '1px solid rgba(225, 6, 0, 0.4)' }}>
+          <div className="chapter-header" style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1.5rem', marginBottom: '2rem' }}>
+            <span className="chapter-marker red-dot">CHAPTER 03 // ACTIVE</span>
+            <h2 className="chapter-title" style={{ fontSize: '2.5rem', marginTop: '0.4rem' }}>
+              IGNITE KNIGHTS 4.0
             </h2>
-
-            <p className="transition-text">
-              {transitionBridge.description}
-            </p>
-
-            <div className="transition-telemetry-diff">
-              <div className="diff-col diff-old">
-                <span className="diff-label font-mono text-gray-500">3.0 ARCHITECTURE:</span>
-                <span className="diff-val font-mono text-gray-400">DECOMMISSIONED & ARCHIVED</span>
-              </div>
-              <div className="diff-arrow font-mono text-red">→ RESET →</div>
-              <div className="diff-col diff-new">
-                <span className="diff-label font-mono text-red">4.0 ARCHITECTURE:</span>
-                <span className="diff-val font-mono text-white">IK-04 CLEAN-SHEET ACTIVE</span>
-              </div>
-            </div>
-
-            <div className="transition-signals font-mono text-xs text-gray-400 mt-4">
-              <div className="signal-line text-gray-500">[-] {transitionBridge.terminalSignal}</div>
-              <div className="signal-line text-red">[+] {transitionBridge.bootSignal}</div>
-            </div>
-          </div>
-        </section>
-
-        {/* ================================================================
-            ERA 2: CURRENT GENERATION — IGNITE KNIGHTS 4.0 (2026 → PRESENT)
-           ================================================================ */}
-        <section className="journey-era-section mb-16">
-          <div className="era-header-bar current-mode mb-8">
-            <div className="flex items-center gap-3">
-              <GenerationBadge variant="current" size="md" />
-              <span className="font-mono text-xs text-gray-400">ERA 02 // NEW GENERATION</span>
-            </div>
-            <span className="font-mono text-xs text-red">STATUS: CURRENTLY DEVELOPING</span>
+            <span className="chapter-period">2026 → PRESENT // CURRENT GENERATION</span>
           </div>
 
-          <div className="era-intro-box current-border mb-10">
-            <h2 className="era-title text-white">
-              IGNITE KNIGHTS 4.0 // ACTIVE FLIGHT ERA (2026 → PRESENT)
-            </h2>
-            <p className="era-desc text-gray-300 text-sm">
-              The new era begins with a clean-sheet multirotor airframe, next-generation edge perception acceleration, deterministic attitude stabilization, and modular payload systems. Below is our active development trajectory.
-            </p>
-          </div>
+          <p style={{ fontSize: '1.1rem', color: 'var(--text-secondary)', lineHeight: '1.8', maxWidth: '850px', marginBottom: '2.5rem' }}>
+            The current active era. Focused on extreme engineering rigor, in-house fabrication, multi-modal sensor fusion, and preparing our newly certified cohort for upcoming autonomous flight challenges.
+          </p>
 
-          {/* 4.0 Active Development Cards */}
-          <div className="era-timeline-stack space-y-8">
-            {current4Era.milestones.map((m) => (
-              <div key={m.year} className="timeline-current-card">
-                <div className="card-top-strip">
-                  <div className="flex items-center gap-2">
-                    <span className="year-pill-red font-mono">{m.year}</span>
-                    <span className="tag-pill-red font-mono text-xs">{m.tag}</span>
-                  </div>
-                  <span className="current-badge-text font-mono text-xs text-red">
-                    {m.status}
-                  </span>
-                </div>
-
-                <h3 className="timeline-card-title text-white font-bold mt-2">{m.title}</h3>
-                <p className="timeline-card-summary text-gray-300 text-sm mt-2">{m.summary}</p>
-
-                <div className="timeline-achievements-box mt-4">
-                  <span className="tech-label text-red mb-2 block">ACTIVE OBJECTIVES:</span>
-                  <div className="achievements-list space-y-1">
-                    {m.points.map((p, pIdx) => (
-                      <div key={pIdx} className="achievement-row flex items-center gap-2">
-                        <CheckCircle2 size={13} className="text-red flex-shrink-0" />
-                        <span className="font-mono text-xs text-white">{p}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="timeline-metrics-foot mt-4 pt-3 border-t border-red-500/20 flex items-center justify-between font-mono text-xs">
-                  <span className="text-gray-400">TARGET: {m.metrics.status}</span>
-                  <span className="text-red font-bold">IGNITE KNIGHTS 4.0</span>
-                </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+            {current4Era.milestones.map((m, idx) => (
+              <div key={idx} style={{ background: '#141418', padding: '2rem', border: '1px solid var(--border-subtle)' }}>
+                <span className="editorial-tag red-dot">{m.year}</span>
+                <h4 style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0.8rem 0' }}>{m.title}</h4>
+                <p style={{ fontSize: '0.92rem', color: 'var(--text-muted)', lineHeight: '1.6' }}>{m.summary}</p>
               </div>
             ))}
           </div>
-        </section>
 
-        {/* Section: Historical Archive Portal Link */}
-        <section className="journey-archive-cta mt-16">
-          <div className="archive-portal-inner">
-            <div className="flex items-center gap-3 mb-2">
-              <GenerationBadge variant="archive" size="sm" />
-              <span className="font-mono text-xs text-gray-400">COMPLETE HISTORICAL RECORD</span>
-            </div>
-
-            <h3 className="portal-heading">
-              EXPLORE THE COMPLETE 3.0 HISTORICAL ARCHIVE
-            </h3>
-
-            <p className="portal-text">
-              View the founding roster, historical aircraft gallery, software partners, and SAE India / SAE ADDC tournament data in the dedicated Ignite Knights 3.0 Archive.
-            </p>
-
-            <div className="mt-4">
-              <Link to="/archive" className="btn-aerospace btn-aerospace-archive-cta">
-                <Archive size={15} />
-                <span>ACCESS 3.0 HISTORICAL ARCHIVE →</span>
-              </Link>
-            </div>
+          <div style={{ marginTop: '2.5rem' }}>
+            <Link to="/aircraft" className="btn-aerospace btn-aerospace-primary">
+              <span>EXPLORE 4.0 AIRCRAFT</span>
+              <ArrowRight size={16} />
+            </Link>
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

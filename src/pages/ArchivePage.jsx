@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PageHero } from '../components/common/PageHero';
 import { GenerationBadge } from '../components/common/GenerationBadge';
 import {
   archiveGenerationInfo,
@@ -13,19 +12,7 @@ import {
   archive3Sponsors,
   archive3Timeline,
 } from '../data/archive';
-import {
-  Archive,
-  ArrowUpRight,
-  ShieldAlert,
-  Trophy,
-  Users,
-  Compass,
-  Cpu,
-  Layers,
-  GraduationCap,
-  ExternalLink,
-  CheckCircle2,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 
 export function ArchivePage() {
   const [activeTab, setActiveTab] = useState('ALL');
@@ -35,353 +22,204 @@ export function ArchivePage() {
     '3.0 AIRCRAFT',
     '3.0 ACHIEVEMENTS',
     '3.0 COMPETITIONS',
-    '3.0 TEAM ROSTER',
-    '3.0 PARTNERS',
+    '3.0 TEAM',
+    '3.0 SPONSORS',
     '3.0 TIMELINE',
   ];
 
   return (
-    <div className="archive-page">
-      {/* Page Hero */}
-      <PageHero
-        badge="THE ARCHIVE // PREVIOUS GENERATION"
-        title="THE ARCHIVE: IGNITE KNIGHTS"
-        highlight="3.0"
-        subtitle={archiveGenerationInfo.description}
-        telemetry="SYSTEM RECORD // 2024 — 2026 // DECOMMISSIONED & ARCHIVED"
-      >
-        <div className="flex items-center gap-3 mt-3">
-          <GenerationBadge variant="archive" size="md" />
-          <span className="font-mono text-xs text-gray-400">
-            TENURE: {archiveGenerationInfo.tenure}
-          </span>
-          <Link to="/" className="btn-aerospace btn-aerospace-sm btn-aerospace-red ml-auto">
-            <span>GO TO CURRENT 4.0 SITE →</span>
-          </Link>
-        </div>
-      </PageHero>
-
-      <div className="container py-10">
-        {/* Archival Notice Strip */}
-        <div className="archive-declaration-banner mb-10">
-          <div className="flex items-start gap-3">
-            <Archive size={22} className="text-gray-400 flex-shrink-0 mt-1" />
-            <div>
-              <h3 className="text-white font-mono font-bold text-sm">
-                CRITICAL ARCHIVAL NOTICE: HISTORICAL GENERATION DATA
-              </h3>
-              <p className="text-xs text-gray-300 mt-1 leading-relaxed">
-                You are viewing the official historical archive of <span className="text-white font-semibold">Ignite Knights 3.0</span>.
-                All information, personnel, competition results, and aircraft presented on this page belong exclusively to the 2024–2026 cohort.
-                For current 4.0 development aircraft, team, and missions, visit the <Link to="/" className="text-red underline font-semibold">Ignite Knights 4.0 homepage</Link>.
-              </p>
-            </div>
+    <div className="archive-editorial-page">
+      {/* Editorial Page Header */}
+      <section className="editorial-page-header">
+        <div className="container">
+          <div className="editorial-header-category">
+            <GenerationBadge variant="archive" />
+          </div>
+          <h1 className="editorial-page-title">
+            THE ARCHIVE<br />
+            <span style={{ color: '#888888' }}>IGNITE KNIGHTS 3.0</span>
+          </h1>
+          <p className="editorial-page-lead">
+            {archiveGenerationInfo.description}
+          </p>
+          <div style={{ marginTop: '2rem' }}>
+            <Link to="/" className="btn-aerospace btn-aerospace-primary">
+              <span>RETURN TO CURRENT 4.0 GENERATION</span>
+              <ArrowRight size={16} />
+            </Link>
           </div>
         </div>
+      </section>
 
-        {/* Archive Navigation Tabs */}
-        <div className="archive-tabs-bar mb-12">
+      <section className="container">
+        {/* Editorial Filter Tabs */}
+        <div className="team-filter-bar">
           {tabs.map((tab) => (
             <button
               key={tab}
-              type="button"
-              className={`archive-tab-btn ${activeTab === tab ? 'active' : ''}`}
+              className={`team-filter-btn ${activeTab === tab ? 'active' : ''}`}
               onClick={() => setActiveTab(tab)}
             >
-              <span className="tab-indicator"></span>
-              <span className="font-mono text-xs">{tab}</span>
+              {tab}
             </button>
           ))}
         </div>
 
-        {/* ================================================================
-            1. 3.0 AIRCRAFT FLEET (Historical)
-           ================================================================ */}
+        {/* 1. 3.0 Aircraft Fleet */}
         {(activeTab === 'ALL' || activeTab === '3.0 AIRCRAFT') && (
-          <section className="archive-section mb-16">
-            <div className="archive-section-header">
-              <span className="badge-3-tag font-mono">IGNITE KNIGHTS 3.0 ARCHIVED</span>
-              <h2 className="archive-section-title">3.0 AIRCRAFT FLEET</h2>
-              <p className="archive-section-desc">
-                The decommissioned UAV airframes engineered and flown by Ignite Knights 3.0.
-              </p>
+          <div className="section-block" style={{ borderTop: 'none', paddingTop: '1rem' }}>
+            <div className="aircraft-intro-header">
+              <div>
+                <span className="editorial-tag">HISTORICAL FLEET</span>
+                <h2 className="section-title-editorial">3.0 AIRCRAFT PLATFORMS</h2>
+              </div>
+              <span className="editorial-tag">DECOMMISSIONED</span>
             </div>
 
-            <div className="archive-aircraft-grid">
-              {archive3Aircraft.map((plane) => (
-                <div key={plane.id} className="archive-aircraft-card corner-bracket-box">
-                  <div className="aircraft-card-top">
-                    <span className="font-mono text-xs text-red">{plane.year} PLATFORM</span>
-                    <span className="archive-pill font-mono">{plane.status}</span>
-                  </div>
-
-                  <div className="aircraft-card-img-wrap">
-                    <img src={plane.image} alt={plane.name} className="aircraft-card-img" />
-                    <div className="highlight-tag font-mono">{plane.highlight}</div>
-                  </div>
-
-                  <h3 className="aircraft-card-name text-white font-bold text-lg mt-3">{plane.name}</h3>
-                  <p className="aircraft-card-desc text-xs text-gray-400 mt-1">{plane.description}</p>
-
-                  <div className="aircraft-specs-table mt-4 pt-3 border-t border-white/10">
-                    {plane.specs.map((s, idx) => (
-                      <div key={idx} className="spec-row flex items-center justify-between font-mono text-xs py-1">
-                        <span className="text-gray-500">{s.label}:</span>
-                        <span className="text-gray-200">{s.value}</span>
-                      </div>
-                    ))}
-                  </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '2rem' }}>
+              {archive3Aircraft.map((craft) => (
+                <div key={craft.name} className="aircraft-spec-card">
+                  <span className="editorial-tag">{craft.callSign} // {craft.year}</span>
+                  <h3 className="aircraft-spec-name">{craft.name}</h3>
+                  <p className="spec-item-desc">{craft.description}</p>
+                  <div className="editorial-divider" style={{ margin: '1.2rem 0' }}></div>
+                  <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem' }}>
+                    <li style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-faint)' }}>AIRFRAME:</span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{craft.specs.airframe}</span>
+                    </li>
+                    <li style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-faint)' }}>PROPULSION:</span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{craft.specs.propulsion}</span>
+                    </li>
+                    <li style={{ display: 'flex', justifyContent: 'space-between' }}>
+                      <span style={{ color: 'var(--text-faint)' }}>PAYLOAD:</span>
+                      <span style={{ color: 'var(--text-secondary)' }}>{craft.specs.payload}</span>
+                    </li>
+                  </ul>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
         )}
 
-        {/* ================================================================
-            2. 3.0 ACHIEVEMENTS (Historical)
-           ================================================================ */}
+        {/* 2. 3.0 Achievements */}
         {(activeTab === 'ALL' || activeTab === '3.0 ACHIEVEMENTS') && (
-          <section className="archive-section mb-16">
-            <div className="archive-section-header">
-              <span className="badge-3-tag font-mono">IGNITE KNIGHTS 3.0 ARCHIVED</span>
-              <h2 className="archive-section-title">3.0 KEY ACHIEVEMENTS</h2>
-              <p className="archive-section-desc">
-                Verified competition finishes and organizational milestones earned during the 3.0 era.
-              </p>
+          <div className="section-block">
+            <div className="aircraft-intro-header">
+              <div>
+                <span className="editorial-tag">HISTORICAL RECORD</span>
+                <h2 className="section-title-editorial">3.0 ACHIEVEMENTS</h2>
+              </div>
+              <span className="editorial-tag">VERIFIED FINISHES</span>
             </div>
 
-            <div className="archive-achievements-grid">
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
               {archive3Achievements.map((ach, idx) => (
-                <div key={idx} className="archive-achievement-card">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="achievement-year font-mono text-red">{ach.year}</span>
-                    <span className="achievement-badge-pill font-mono">{ach.badge}</span>
-                  </div>
-
-                  <div className="achievement-event font-mono text-xs text-gray-400">{ach.event}</div>
-                  <h3 className="achievement-title text-white font-bold text-base mt-1">{ach.title}</h3>
-                  <p className="achievement-desc text-xs text-gray-300 mt-2">{ach.description}</p>
-
-                  <div className="achievement-foot font-mono text-xs text-gray-500 mt-3 pt-2 border-t border-white/5">
-                    HISTORICAL RECORD VERIFIED
-                  </div>
+                <div key={idx} className="partner-track-card">
+                  <span className="editorial-tag red-dot">{ach.year} // {ach.event}</span>
+                  <h3 className="track-title">{ach.title}</h3>
+                  <p className="track-desc">{ach.description}</p>
+                  <div className="editorial-divider" style={{ margin: '1rem 0' }}></div>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent-red)' }}>
+                    RANKING: {ach.ranking}
+                  </span>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
         )}
 
-        {/* ================================================================
-            3. 3.0 COMPETITIONS (Historical)
-           ================================================================ */}
+        {/* 3. 3.0 Competitions */}
         {(activeTab === 'ALL' || activeTab === '3.0 COMPETITIONS') && (
-          <section className="archive-section mb-16">
-            <div className="archive-section-header">
-              <span className="badge-3-tag font-mono">IGNITE KNIGHTS 3.0 ARCHIVED</span>
-              <h2 className="archive-section-title">3.0 COMPETITION CAMPAIGNS</h2>
-              <p className="archive-section-desc">
-                Historical tournament participations and campaigns initiated by the 3.0 cohort.
-              </p>
+          <div className="section-block">
+            <div className="aircraft-intro-header">
+              <div>
+                <span className="editorial-tag">HISTORICAL CAMPAIGNS</span>
+                <h2 className="section-title-editorial">3.0 COMPETITION CAMPAIGNS</h2>
+              </div>
+              <span className="editorial-tag">CONCLUDED</span>
             </div>
 
-            <div className="archive-competitions-stack space-y-6">
+            <div className="missions-case-study-list">
               {archive3Competitions.map((comp) => (
-                <div key={comp.id} className="archive-competition-card">
-                  <div className="comp-card-top flex items-center justify-between">
-                    <span className="comp-name text-white font-bold text-base">{comp.name}</span>
-                    <span className="comp-status font-mono text-xs text-red">{comp.status}</span>
+                <div key={comp.id} className="mission-case-study-item">
+                  <div className="mission-meta-strip">
+                    <span className="mission-serial-tag">{comp.name}</span>
+                    <span className="editorial-tag">{comp.type}</span>
                   </div>
-
-                  <div className="comp-grid mt-3">
-                    <div>
-                      <span className="tech-label text-gray-400 block mb-1">OBJECTIVE:</span>
-                      <p className="text-xs text-gray-300">{comp.objective}</p>
-                    </div>
-
-                    {comp.achievement && (
-                      <div className="mt-2">
-                        <span className="tech-label text-red block mb-1">3.0 ACHIEVED OUTCOME:</span>
-                        <p className="text-xs text-white font-semibold">{comp.achievement}</p>
-                      </div>
-                    )}
-
-                    {comp.approach && (
-                      <div className="mt-2">
-                        <span className="tech-label text-gray-400 block mb-1">3.0 TECHNICAL APPROACH:</span>
-                        <p className="text-xs text-gray-300">{comp.approach}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="comp-techs-wrap mt-3 pt-2 border-t border-white/5 flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-xs text-gray-500">TECH:</span>
+                  <h3 className="mission-name-display">{comp.objective}</h3>
+                  <p className="mission-objective-text">{comp.challenge}</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '1rem' }}>
                     {comp.technologies.map((t) => (
-                      <span key={t} className="tech-pill font-mono text-xs">{t}</span>
+                      <span key={t} className="editorial-tag" style={{ background: '#121212' }}>{t}</span>
                     ))}
                   </div>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
         )}
 
-        {/* ================================================================
-            4. 3.0 TEAM ROSTER (Historical)
-           ================================================================ */}
-        {(activeTab === 'ALL' || activeTab === '3.0 TEAM ROSTER') && (
-          <section className="archive-section mb-16">
-            <div className="archive-section-header">
-              <span className="badge-3-tag font-mono">IGNITE KNIGHTS 3.0 ARCHIVED</span>
-              <h2 className="archive-section-title">3.0 HISTORICAL TEAM ROSTER</h2>
-              <p className="archive-section-desc">
-                The founding team leadership, core engineers, mentors, and trainees of Ignite Knights 3.0.
-              </p>
+        {/* 4. 3.0 Team Roster */}
+        {(activeTab === 'ALL' || activeTab === '3.0 TEAM') && (
+          <div className="section-block">
+            <div className="aircraft-intro-header">
+              <div>
+                <span className="editorial-tag">HISTORICAL PERSONNEL</span>
+                <h2 className="section-title-editorial">3.0 FOUNDING ROSTER & MENTORS</h2>
+              </div>
+              <span className="editorial-tag">2024 — 2026 TENURE</span>
             </div>
 
-            {/* Core Engineers */}
-            <h3 className="roster-subheading text-white font-mono text-sm mb-4">
-              // 3.0 CORE ENGINEERING CADRE
-            </h3>
-            <div className="archive-members-grid mb-10">
-              {archive3TeamMembers.map((member) => (
-                <div key={member.id} className="archive-member-card">
-                  <div className="member-photo-wrap">
-                    {member.photo ? (
-                      <img src={member.photo} alt={member.name} className="member-photo" />
-                    ) : (
-                      <div className="member-photo-fallback font-mono">
-                        {member.name.slice(0, 2).toUpperCase()}
-                      </div>
-                    )}
-                    <span className="member-callsign font-mono">{member.callSign}</span>
-                  </div>
-
-                  <div className="member-info">
-                    <h4 className="member-name text-white font-bold text-sm">{member.name}</h4>
-                    <span className="member-role font-mono text-xs text-red block">{member.role}</span>
-                    <span className="member-dept font-mono text-xs text-gray-400 block mb-2">
-                      {member.department}
-                    </span>
-                    <p className="member-bio text-xs text-gray-300">{member.bio}</p>
-                  </div>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '2rem' }}>
+              {archive3TeamMembers.map((m) => (
+                <div key={m.name} className="team-member-editorial-card">
+                  <span className="editorial-tag">{m.domain}</span>
+                  <h3 className="member-role-title">{m.name}</h3>
+                  <span className="member-status-line" style={{ color: '#888888' }}>{m.role}</span>
+                  <p className="member-resp-text">{m.specialization}</p>
                 </div>
               ))}
             </div>
 
-            {/* Faculty Advisors & Mentors */}
-            <h3 className="roster-subheading text-white font-mono text-sm mb-4">
-              // 3.0 FACULTY ADVISORS & TECHNICAL MENTORS
-            </h3>
-            <div className="archive-mentors-grid mb-10">
-              {archive3Mentors.map((mentor) => (
-                <div key={mentor.id} className="archive-mentor-card">
-                  <div className="flex items-center gap-2 mb-2">
-                    <GraduationCap size={16} className="text-red" />
-                    <span className="badge-pill font-mono text-xs">{mentor.badge}</span>
+            <div style={{ marginTop: '4rem' }}>
+              <span className="editorial-tag" style={{ display: 'block', marginBottom: '1.5rem' }}>FACULTY ADVISORS & MENTORS</span>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+                {archive3Mentors.map((mentor) => (
+                  <div key={mentor.name} className="team-member-editorial-card">
+                    <span className="editorial-tag">{mentor.department}</span>
+                    <h4 className="member-role-title">{mentor.name}</h4>
+                    <p className="member-resp-text">{mentor.role}</p>
                   </div>
-                  <h4 className="mentor-name text-white font-bold text-sm">{mentor.name}</h4>
-                  <span className="mentor-role font-mono text-xs text-red block">{mentor.role}</span>
-                  <span className="mentor-org font-mono text-xs text-gray-400 block mb-2">
-                    {mentor.title} // {mentor.organization}
-                  </span>
-                  <p className="mentor-bio text-xs text-gray-300">{mentor.bio}</p>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-
-            {/* Trainees */}
-            <h3 className="roster-subheading text-white font-mono text-sm mb-4">
-              // 3.0 ENGINEERING TRAINEES
-            </h3>
-            <div className="archive-trainees-grid">
-              {archive3Trainees.map((t, idx) => (
-                <div key={idx} className="archive-trainee-card flex items-center gap-3">
-                  {t.photo ? (
-                    <img src={t.photo} alt={t.name} className="trainee-thumb" />
-                  ) : (
-                    <div className="trainee-thumb fallback font-mono">{t.name[0]}</div>
-                  )}
-                  <div>
-                    <h5 className="trainee-name text-white font-semibold text-xs">{t.name}</h5>
-                    <span className="trainee-role font-mono text-xs text-red block">{t.role}</span>
-                    <span className="trainee-dept font-mono text-xs text-gray-400 block">{t.dept}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
+          </div>
         )}
 
-        {/* ================================================================
-            5. 3.0 PARTNERS & SOFTWARE LICENSES (Historical)
-           ================================================================ */}
-        {(activeTab === 'ALL' || activeTab === '3.0 PARTNERS') && (
-          <section className="archive-section mb-16">
-            <div className="archive-section-header">
-              <span className="badge-3-tag font-mono">IGNITE KNIGHTS 3.0 ARCHIVED</span>
-              <h2 className="archive-section-title">3.0 TECHNOLOGY SPONSORS (9 PARTNERS)</h2>
-              <p className="archive-section-desc">
-                Engineering software licenses and institutional sponsorships that supported 3.0 R&D.
-              </p>
+        {/* 5. 3.0 Sponsors */}
+        {(activeTab === 'ALL' || activeTab === '3.0 SPONSORS') && (
+          <div className="section-block">
+            <div className="aircraft-intro-header">
+              <div>
+                <span className="editorial-tag">HISTORICAL SOFTWARE LICENSES</span>
+                <h2 className="section-title-editorial">3.0 TECHNOLOGY PARTNERS</h2>
+              </div>
             </div>
 
-            <div className="archive-sponsors-grid">
-              {archive3Sponsors.map((sp, idx) => (
-                <div key={idx} className="archive-sponsor-item">
-                  <div className="sponsor-logo-box">
-                    <img
-                      src={sp.logo}
-                      alt={sp.name}
-                      className="sponsor-logo"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                      }}
-                    />
-                  </div>
-                  <h4 className="sponsor-name text-white font-bold text-sm mt-2">{sp.name}</h4>
-                  <span className="sponsor-category font-mono text-xs text-red block">{sp.category}</span>
-                  <p className="sponsor-desc text-xs text-gray-400 mt-1">{sp.description}</p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '2rem' }}>
+              {archive3Sponsors.map((s) => (
+                <div key={s.name} className="partner-track-card">
+                  <h3 className="track-title">{s.name}</h3>
+                  <span className="editorial-tag">{s.role}</span>
+                  <p className="track-desc">{s.contribution}</p>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
         )}
-
-        {/* ================================================================
-            6. 3.0 TIMELINE SUMMARY (Historical)
-           ================================================================ */}
-        {(activeTab === 'ALL' || activeTab === '3.0 TIMELINE') && (
-          <section className="archive-section mb-16">
-            <div className="archive-section-header">
-              <span className="badge-3-tag font-mono">IGNITE KNIGHTS 3.0 ARCHIVED</span>
-              <h2 className="archive-section-title">3.0 HISTORICAL TIMELINE SUMMARY</h2>
-            </div>
-
-            <div className="archive-timeline-list space-y-4">
-              {archive3Timeline.map((item, idx) => (
-                <div key={idx} className="archive-timeline-row flex items-start gap-4">
-                  <span className="timeline-yr font-mono text-red font-bold text-sm">{item.year}</span>
-                  <div>
-                    <h4 className="timeline-ph text-white font-semibold text-sm">{item.phase}</h4>
-                    <p className="timeline-sm text-xs text-gray-400 mt-0.5">{item.summary}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Return to 4.0 Action Bar */}
-        <div className="archive-footer-action-bar text-center py-8 border-t border-white/10">
-          <span className="font-mono text-xs text-gray-400 block mb-3">
-            END OF 3.0 HISTORICAL RECORD // IGNITE KNIGHTS 4.0 IS THE ACTIVE GENERATION
-          </span>
-          <Link to="/" className="btn-aerospace btn-aerospace-red">
-            <span>PROCEED TO IGNITE KNIGHTS 4.0 HOMEPAGE</span>
-            <ArrowUpRight size={15} />
-          </Link>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }

@@ -1,57 +1,49 @@
 /* ==========================================================================
-   IGNITE KNIGHTS 3.0 — AEROSPACE & AUTONOMOUS SYSTEMS DESIGN SYSTEM
-   Theme: Precision Engineering / Black + Strategic Red / Mission Control
+   IGNITE KNIGHTS 4.0 — AEROSPACE DESIGN STUDIO & EDITORIAL DESIGN SYSTEM
+   Art Direction: Editorial Aerospace Lab + Industrial Design + Precision Red Accent
+   Palette: Deep Charcoal/Black (#050505, #0A0A0A, #111111, #171717) + Accent Red (#E10600)
    ========================================================================== */
 
 :root {
-  /* Color Palette */
+  /* Surface Color Palette */
   --bg-primary: #050505;
-  --bg-secondary: #08080a;
-  --bg-tertiary: #0f0f13;
-  --bg-surface: #141418;
-  --bg-surface-elevated: #1a1a20;
-  --bg-glass: rgba(14, 14, 18, 0.8);
-  --bg-card: rgba(18, 18, 22, 0.6);
+  --bg-secondary: #0a0a0a;
+  --bg-surface: #111111;
+  --bg-surface-elevated: #171717;
+  --bg-card: #0e0e0e;
+  --bg-card-hover: #141414;
 
-  /* Strategic Red Accents */
+  /* Precision Engineering Red Accent (Restrained Use Only) */
   --accent-red: #e10600;
-  --accent-red-bright: #ff2a22;
-  --accent-red-muted: #800000;
-  --accent-red-dark: #3a0000;
-  --accent-red-glow: rgba(225, 6, 0, 0.35);
-  --accent-red-subtle: rgba(225, 6, 0, 0.1);
-
-  /* Status Colors */
-  --status-active: #00e676;
-  --status-warning: #ffb300;
-  --status-standby: #e10600;
+  --accent-red-hover: #ff1a14;
+  --accent-red-subtle: rgba(225, 6, 0, 0.08);
+  --accent-red-border: rgba(225, 6, 0, 0.25);
 
   /* Typography Colors */
-  --text-primary: #f5f5f7;
-  --text-secondary: #d0d0d8;
-  --text-muted: #8a8a95;
-  --text-faint: #52525d;
+  --text-primary: #f4f4f4;
+  --text-secondary: #d2d2d2;
+  --text-muted: #9a9a9a;
+  --text-faint: #606060;
   --text-inverse: #050505;
 
-  /* Borders & Rules */
+  /* Clean Borders & Rules (1px Precision) */
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.15);
-  --border-red: rgba(225, 6, 0, 0.3);
-  --border-red-bright: rgba(225, 6, 0, 0.7);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-strong: rgba(255, 255, 255, 0.28);
 
   /* Typography Fonts */
   --font-headline: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  /* Spacings */
-  --container-max: 1380px;
-  --header-height: 80px;
+  /* Layout Constraints */
+  --container-max: 1440px;
+  --header-height: 84px;
 
-  /* Transitions */
+  /* Cinematic Transitions */
   --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-medium: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-medium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Reset & Box Sizing */
@@ -79,8 +71,6 @@ body {
   color: var(--text-primary);
   overflow-x: hidden;
   position: relative;
-  selection-background-color: var(--accent-red);
-  selection-color: #ffffff;
 }
 
 ::selection {
@@ -88,20 +78,19 @@ body {
   color: #ffffff;
 }
 
-/* Custom Scrollbar */
+/* Minimal Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #08080a;
+  background: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #25252d;
-  border-radius: 4px;
-  border: 2px solid #08080a;
+  background: #222222;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -112,14 +101,15 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headline);
   font-weight: 700;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
-  line-height: 1.1;
+  line-height: 1.05;
 }
 
 p {
   color: var(--text-secondary);
-  font-size: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 a {
@@ -139,15 +129,16 @@ button {
 input, textarea, select {
   font-family: var(--font-body);
   color: var(--text-primary);
-  background: var(--bg-tertiary);
+  background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   outline: none;
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast);
+  padding: 0.9rem 1.2rem;
+  font-size: 1rem;
 }
 
 input:focus, textarea:focus {
-  border-color: var(--accent-red);
-  box-shadow: 0 0 0 1px var(--accent-red-glow);
+  border-color: var(--text-primary);
 }
 
 /* Layout Utilities */
@@ -156,8 +147,8 @@ input:focus, textarea:focus {
   max-width: var(--container-max);
   margin-left: auto;
   margin-right: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
 }
 
 @media (max-width: 768px) {
@@ -179,40 +170,20 @@ input:focus, textarea:focus {
   padding-top: var(--header-height);
 }
 
-/* Aerospace Technical HUD & Grid Background */
-.aerospace-bg-grid {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 0;
-  background-image: 
-    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-position: center center;
-  mask-image: radial-gradient(circle at 50% 35%, black 20%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at 50% 35%, black 20%, transparent 80%);
+/* Subtle Editorial Tag & Number */
+.editorial-num {
+  font-family: var(--font-headline);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.15);
+  line-height: 1;
+  letter-spacing: -0.04em;
 }
 
-.aerospace-vignette {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(5, 5, 5, 0.85) 100%);
-}
-
-/* Technical Label & Badge */
-.tech-label {
+.editorial-tag {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--text-muted);
   display: inline-flex;
@@ -220,220 +191,74 @@ input:focus, textarea:focus {
   gap: 0.5rem;
 }
 
-.tech-label-red {
-  color: var(--accent-red-bright);
-}
-
-.tech-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  padding: 0.25rem 0.6rem;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  border-radius: 2px;
-  color: var(--text-secondary);
-}
-
-.tech-tag-red {
-  background: var(--accent-red-subtle);
-  border-color: var(--border-red);
-  color: #ff9995;
-}
-
-/* Technical Section Header */
-.section-header-wrap {
-  margin-bottom: 3.5rem;
-  position: relative;
-}
-
-.section-meta-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 1rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-subtle);
-}
-
-.section-coord {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  color: var(--text-faint);
-}
-
-.section-title-large {
-  font-size: clamp(2.2rem, 5vw, 3.8rem);
-  font-weight: 800;
-  line-height: 1.05;
-  text-transform: uppercase;
-  color: var(--text-primary);
-}
-
-.section-title-highlight {
-  color: var(--accent-red);
-  display: inline-block;
-  position: relative;
-}
-
-.section-subtitle-editorial {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  max-width: 680px;
-  margin-top: 1rem;
-  line-height: 1.6;
-}
-
-/* Engineering Corner Brackets */
-.corner-bracket-box {
-  position: relative;
-  background: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  transition: border-color var(--transition-medium), transform var(--transition-medium), box-shadow var(--transition-medium);
-}
-
-.corner-bracket-box::before,
-.corner-bracket-box::after {
+.editorial-tag.red-dot::before {
   content: '';
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  pointer-events: none;
-  transition: border-color var(--transition-fast);
+  width: 6px;
+  height: 6px;
+  background: var(--accent-red);
+  display: inline-block;
 }
 
-.corner-bracket-box::before {
-  top: -1px;
-  left: -1px;
-  border-top: 2px solid var(--accent-red);
-  border-left: 2px solid var(--accent-red);
+/* Section Dividers */
+.editorial-divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border-subtle);
+  margin: 4rem 0;
 }
 
-.corner-bracket-box::after {
-  bottom: -1px;
-  right: -1px;
-  border-bottom: 2px solid var(--accent-red);
-  border-right: 2px solid var(--accent-red);
-}
-
-.corner-bracket-box:hover {
-  border-color: var(--border-red);
-}
-
-/* Buttons */
+/* Minimal Engineering Buttons */
 .btn-aerospace {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  padding: 0.95rem 1.9rem;
-  font-family: var(--font-mono);
-  font-size: 0.82rem;
+  padding: 1rem 2.2rem;
+  font-family: var(--font-headline);
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  border-radius: 2px;
+  border-radius: 0;
   position: relative;
-  overflow: hidden;
-  transition: all var(--transition-medium);
+  transition: all var(--transition-fast);
 }
 
 .btn-aerospace-primary {
-  background: var(--accent-red);
-  color: #ffffff;
-  border: 1px solid var(--accent-red);
-  box-shadow: 0 4px 20px rgba(225, 6, 0, 0.35);
+  background: #ffffff;
+  color: #050505;
+  border: 1px solid #ffffff;
 }
 
 .btn-aerospace-primary:hover {
-  background: var(--accent-red-bright);
-  box-shadow: 0 6px 28px rgba(225, 6, 0, 0.55);
-  transform: translateY(-2px);
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #ffffff;
 }
 
-.btn-aerospace-secondary {
-  background: rgba(255, 255, 255, 0.03);
+.btn-aerospace-red {
+  background: var(--accent-red);
+  color: #ffffff;
+  border: 1px solid var(--accent-red);
+}
+
+.btn-aerospace-red:hover {
+  background: var(--accent-red-hover);
+  border-color: var(--accent-red-hover);
+}
+
+.btn-aerospace-outline {
+  background: transparent;
   color: var(--text-primary);
   border: 1px solid var(--border-medium);
 }
 
-.btn-aerospace-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--text-primary);
-  transform: translateY(-2px);
-}
-
-.btn-aerospace-outline-red {
-  background: transparent;
-  color: #ff5550;
-  border: 1px solid var(--border-red);
-}
-
-.btn-aerospace-outline-red:hover {
-  background: var(--accent-red);
+.btn-aerospace-outline:hover {
+  border-color: #ffffff;
   color: #ffffff;
-  border-color: var(--accent-red);
-  box-shadow: 0 4px 20px rgba(225, 6, 0, 0.4);
-  transform: translateY(-2px);
 }
 
-/* Status Indicator Dot */
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  display: inline-block;
-  background-color: var(--accent-red);
-  box-shadow: 0 0 10px var(--accent-red);
-  position: relative;
-}
-
-.status-dot.active {
-  background-color: var(--status-active);
-  box-shadow: 0 0 10px var(--status-active);
-}
-
-.status-dot.pulse::after {
-  content: '';
-  position: absolute;
-  top: -3px;
-  left: -3px;
-  right: -3px;
-  bottom: -3px;
-  border-radius: 50%;
-  border: 1px solid var(--accent-red);
-  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-}
-
-@keyframes pulse-ring {
-  0% { transform: scale(0.9); opacity: 0.9; }
-  70% { transform: scale(2.2); opacity: 0; }
-  100% { transform: scale(2.5); opacity: 0; }
-}
-
-/* Red Measurement Line */
-.tech-ruler-line {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(90deg, var(--accent-red) 0%, rgba(255, 255, 255, 0.1) 40%, transparent 100%);
-  position: relative;
-  margin: 1.5rem 0;
-}
-
-.tech-ruler-line::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: -3px;
-  width: 2px;
-  height: 7px;
-  background: var(--accent-red);
-}
-
-/* Noise Texture Overlay */
+/* Subtle Film Grain Texture Overlay */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -441,9 +266,9 @@ input:focus, textarea:focus {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  opacity: 0.025;
+  opacity: 0.018;
   z-index: 999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 /* Reduced Motion Override */

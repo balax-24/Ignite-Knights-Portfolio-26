@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
-import { SystemLoader } from './components/ui/SystemLoader';
 
 // 10 Dedicated Aerospace Pages for Ignite Knights 4.0 & 3.0 Archive
 import { HomePage } from './pages/HomePage';
@@ -16,33 +15,17 @@ import { PartnersPage } from './pages/PartnersPage';
 import { ArchivePage } from './pages/ArchivePage';
 import { ContactPage } from './pages/ContactPage';
 
-// Aerospace Stylesheet Cascade
+// Editorial Stylesheets
 import './styles/index.css';
 import './styles/drone3d.css';
 import './styles/components.css';
-import './styles/cards.css';
 import './styles/pages.css';
 
 export default function App() {
-  const [bootSequenceActive, setBootSequenceActive] = useState(() => {
-    // Run aerospace system boot sequence on first visit in session
-    return !sessionStorage.getItem('ik_boot_passed');
-  });
-
-  const handleBootComplete = () => {
-    sessionStorage.setItem('ik_boot_passed', 'true');
-    setBootSequenceActive(false);
-  };
-
   return (
     <BrowserRouter>
-      {/* 4.0 Initial Aerospace System Boot Sequence */}
-      {bootSequenceActive && <SystemLoader onComplete={handleBootComplete} />}
-
-      {/* Global Aerospace Background Environment */}
-      <div className="aerospace-bg-grid"></div>
-      <div className="aerospace-vignette"></div>
-      <div className="noise-overlay"></div>
+      {/* Subtle organic film grain texture */}
+      <div className="noise-overlay" aria-hidden="true"></div>
 
       <div className="page-wrapper">
         <Navbar />

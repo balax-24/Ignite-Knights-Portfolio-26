@@ -2,12 +2,11 @@ import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, ContactShadows, Float } from '@react-three/drei';
 import { DroneModel } from './DroneModel';
-import { TechnicalHUD } from './TechnicalHUD';
-import { AircraftHotspots } from './AircraftHotspots';
 import * as THREE from 'three';
 
 /**
  * Camera & Drone Parallax Rig
+ * Controlled, elegant pointer tracking without aggressive tilting
  */
 function DroneRig({ children, enableParallax = true }) {
   const groupRef = useRef();
@@ -18,13 +17,13 @@ function DroneRig({ children, enableParallax = true }) {
     if (groupRef.current) {
       groupRef.current.rotation.y = THREE.MathUtils.lerp(
         groupRef.current.rotation.y,
-        pointer.x * 0.35,
-        0.05
+        pointer.x * 0.2,
+        0.04
       );
       groupRef.current.rotation.x = THREE.MathUtils.lerp(
         groupRef.current.rotation.x,
-        -pointer.y * 0.2,
-        0.05
+        -pointer.y * 0.12,
+        0.04
       );
     }
   });
@@ -33,33 +32,50 @@ function DroneRig({ children, enableParallax = true }) {
 }
 
 /**
- * Aerospace key and rim lighting
+ * Aerospace Product Studio Lighting
+ * Emulates high-end automotive / aerospace industrial product photography:
+ * - High-intensity neutral overhead key light
+ * - Crisp rim backlighting for sharp silhouette separation
+ * - Neutral ambient fill so carbon weave and titanium hardware are readable
+ * - Subtle restrained red accent kicker from rear-underneath
  */
-function AerospaceLighting() {
+function AerospaceStudioLighting() {
   return (
     <>
-      <ambientLight intensity={0.45} />
-      {/* High-intensity overhead neutral key light */}
+      {/* Neutral ambient fill for shadow detail */}
+      <ambientLight intensity={0.85} color="#e5e7eb" />
+
+      {/* Main Overhead Studio Key Light */}
       <directionalLight
-        position={[6, 10, 8]}
-        intensity={1.6}
+        position={[6, 9, 8]}
+        intensity={2.6}
+        color="#ffffff"
         castShadow
         shadow-mapSize-width={1024}
         shadow-mapSize-height={1024}
+        shadow-bias={-0.0001}
       />
-      {/* Soft fill light from front left */}
-      <directionalLight position={[-8, 4, 6]} intensity={0.6} color="#c0c8e0" />
-      {/* Strategic aerospace red rim / underglow light */}
-      <spotLight
-        position={[0, -4, -2]}
+
+      {/* Lateral Fill Light (Left-Front) */}
+      <directionalLight
+        position={[-7, 3, 6]}
+        intensity={1.4}
+        color="#d1d5db"
+      />
+
+      {/* Precision High-Angle Silhouette Contour / Rim Light */}
+      <directionalLight
+        position={[0, 7, -8]}
         intensity={2.8}
-        color="#ff1a14"
-        distance={12}
-        angle={0.8}
-        penumbra={0.7}
+        color="#ffffff"
       />
-      {/* Rear red accent edge light */}
-      <directionalLight position={[0, 3, -8]} intensity={1.5} color="#e10600" />
+
+      {/* Subtle Low-Angle Engineering Red Kicker (Restrained Accent) */}
+      <directionalLight
+        position={[2, -4, -6]}
+        intensity={0.85}
+        color="#ff2222"
+      />
     </>
   );
 }
@@ -76,7 +92,7 @@ function DroneFallback() {
         className="drone-fallback-img"
       />
       <div className="drone-fallback-overlay">
-        <span className="tech-label tech-label-red">IK-04 // 4.0 DEVELOPMENT UAV PLATFORM</span>
+        <span className="editorial-tag red-dot">IK-04 // 4.0 IN-HOUSE AIRCRAFT</span>
       </div>
     </div>
   );
@@ -84,16 +100,13 @@ function DroneFallback() {
 
 export function DroneScene({
   isCompact = false,
-  showHotspots = true,
-  showHUD = true,
   isExploded = false,
-  onToggleExploded,
   enableOrbit = true,
   autoRotate = false,
+  className = '',
 }) {
   const [hasWebGLError, setHasWebGLError] = useState(false);
   const [isClient, setIsClient] = useState(false);
-  const [activeSubsystem, setActiveSubsystem] = useState(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -102,26 +115,13 @@ export function DroneScene({
   if (!isClient) return null;
 
   return (
-    <div className={`drone-scene-wrapper ${isCompact ? 'compact' : 'hero-mode'}`}>
-      {/* Interactive HUD telemetry overlay */}
-      {showHUD && <TechnicalHUD activeSubsystem={activeSubsystem} />}
-
-      {/* Interactive Subsystem Hotspots Overlay */}
-      {showHotspots && (
-        <AircraftHotspots
-          activeHotspot={activeSubsystem}
-          onSelectHotspot={setActiveSubsystem}
-          isExploded={isExploded}
-          onToggleExploded={onToggleExploded}
-        />
-      )}
-
+    <div className={`drone-scene-wrapper ${isCompact ? 'compact' : ''} ${className}`}>
       {hasWebGLError ? (
         <DroneFallback />
       ) : (
         <Canvas
           shadows
-          camera={{ position: [3.8, 2.2, 4.2], fov: 42 }}
+          camera={{ position: [3.6, 2.0, 4.2], fov: 40 }}
           dpr={[1, Math.min(window.devicePixelRatio || 1, 2)]}
           gl={{
             antialias: true,
@@ -134,32 +134,30 @@ export function DroneScene({
           onError={() => setHasWebGLError(true)}
           style={{ width: '100%', height: '100%' }}
         >
-          <AerospaceLighting />
+          <AerospaceStudioLighting />
 
           <Suspense fallback={null}>
             <Float
-              speed={isExploded ? 0 : 1.4}
-              rotationIntensity={isExploded ? 0 : 0.15}
-              floatIntensity={isExploded ? 0 : 0.25}
-              floatingRange={[-0.08, 0.08]}
+              speed={isExploded ? 0 : 1.2}
+              rotationIntensity={isExploded ? 0 : 0.08}
+              floatIntensity={isExploded ? 0 : 0.15}
+              floatingRange={[-0.05, 0.05]}
             >
               <DroneRig enableParallax={!isExploded}>
                 <DroneModel
                   scale={isCompact ? 0.95 : 1.15}
                   isExploded={isExploded}
-                  activeSubsystem={activeSubsystem}
-                  onSubsystemClick={setActiveSubsystem}
                 />
               </DroneRig>
             </Float>
 
-            {/* Aerospace Ground Radar Shadow */}
+            {/* Studio Floor Contact Shadow */}
             <ContactShadows
-              position={[0, -1.2, 0]}
+              position={[0, -1.15, 0]}
               opacity={0.65}
-              scale={6}
+              scale={7}
               blur={2.4}
-              far={4.5}
+              far={4.0}
               color="#000000"
             />
           </Suspense>
@@ -170,11 +168,11 @@ export function DroneScene({
               enableZoom={false}
               enablePan={false}
               autoRotate={autoRotate}
-              autoRotateSpeed={0.6}
-              maxPolarAngle={Math.PI / 1.7}
+              autoRotateSpeed={0.5}
+              maxPolarAngle={Math.PI / 1.75}
               minPolarAngle={Math.PI / 3.4}
               dampingFactor={0.06}
-              rotateSpeed={0.6}
+              rotateSpeed={0.55}
             />
           )}
         </Canvas>
